@@ -103,7 +103,7 @@
    font-weight: 900;
    line-height: 0.78;
    font-size: clamp(72px, 16vw, 220px);
-   background: linear-gradient(90deg, #000 0%, #000 50%, #fff 100%);
+   background: linear-gradient(90deg, #fb00ff 0%, #ff0000 50%, #ffffff 100%);
    -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
    letter-spacing: -1.6px;
