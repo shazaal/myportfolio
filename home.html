@@ -3,240 +3,402 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Muhammed Shasal — UI/UX & PHP/Laravel Developer</title>
-  <meta name="description" content="Muhammed Shasal — UI/UX designer and PHP/Laravel developer. Design-led engineering: research, interfaces, and production-ready Laravel apps." />
-  <meta property="og:title" content="Muhammed Shasal — Portfolio (UI/UX & PHP/Laravel)" />
-  <meta property="og:description" content="Design-led engineering: UI/UX, front-end, and PHP/Laravel production apps." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/og-image.png" />
+  <title>Muhammed Shasal — Portfolio</title>
+  <meta name="description" content="Muhammed Shasal — UI/UX designer & Laravel developer" />
+
+  <!-- Poppins -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/profile.webp" type="image/webp">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css" />
-  <link rel="shortcut icon" href="assets/imgi_32_logo-search-grid-2x.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { accent: '#0b5fff', muted: '#6f7579' },
+          borderRadius: { xl2: '18px' }
+        },
+        fontFamily: { sans: ['Poppins','system-ui','Segoe UI','Roboto','Arial'] }
+      }
+    }
+  </script>
 
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root{ --accent:#0b5fff; --muted:#6f7579; }
+    body{ font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Arial; -webkit-font-smoothing:antialiased; }
+    a:focus, button:focus { outline: 3px solid rgba(11,95,255,0.12); outline-offset: 3px; border-radius:8px; }
+
+    /* NAV BAR (glassy rounded) */
+    .nav-wrap {
+      max-width: 1100px;
+      margin: 14px auto;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 8px 28px rgba(16,24,40,0.06);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      border: 1px solid rgba(15, 23, 42, 0.04);
+    }
+    .brand-badge {
+      width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+      background: linear-gradient(180deg,#fff,#f7fbff);
+      font-weight:800; color:var(--accent); box-shadow:0 6px 18px rgba(11,95,255,0.04);
+      border:1px solid rgba(11,95,255,0.06);
+      font-size:14px;
+    }
+    .nav-links a { color:#0f1724; font-weight:600; padding:8px 10px; border-radius:10px; }
+    .nav-actions { display:flex; gap:8px; align-items:center; }
+
+    /* Mobile slide-down menu (collapsible, in-flow) */
+    .mobile-menu-wrap { overflow: hidden; transition: max-height .36s cubic-bezier(.2,.9,.3,1), opacity .28s ease; max-height:0; opacity:0; }
+    .mobile-menu-wrap.open { max-height: 460px; opacity:1; }
+    .mobile-menu-inner { padding:12px; display:flex; flex-direction:column; gap:8px; }
+
+    /* TYPED text (all same size) */
+    .typed-size { font-weight:800; letter-spacing:-0.6px; line-height:0.95; font-size: clamp(26px, 7.4vw, 56px); text-wrap:balance; text-align:center; }
+
+    /* cursor */
+    .typing-cursor { display:inline-block; width:2px; background:var(--accent); margin-left:6px; animation: blink 1s steps(2,start) infinite; vertical-align:bottom; height:1.02em; }
+    @keyframes blink { 50%{opacity:0} 100%{opacity:1} }
+
+    /* portrait: circular mask by default to hide white square */
+    .portrait-card { background: transparent !important; border: none !important; box-shadow: 0 24px 48px rgba(10,10,10,0.06); overflow:hidden; border-radius:9999px; width:38vw; min-width:120px; max-width:220px; }
+    .portrait-card img { display:block; width:100%; height:100%; object-fit:cover; }
+
+    /* designer plain label */
+    .designer-plain { display:inline-flex; align-items:center; gap:8px; font-weight:700; color:#111827; letter-spacing:0.4px; }
+
+    /* responsive tweaks */
+    @media (min-width:1024px) {
+      .portrait-card { border-radius:18px; width:46vw; max-width:480px; min-width:260px; }
+      .portrait-card img { border-radius:14px; }
+    }
+    @media (max-width:880px) {
+      .typed-size { font-size: clamp(22px, 12vw, 42px); }
+      .nav-wrap { margin: 10px 12px; }
+    }
+
+    /* small placeholders for project thumbs */
+    .thumb-taskflow { background: linear-gradient(135deg,#EEF2FF 0%,#EEF8FF 100%); }
+    .thumb-hostello { background: linear-gradient(135deg,#FFF7ED 0%,#FFF8F0 100%); }
+    .thumb-pos { background: linear-gradient(135deg,#ECFEFF 0%,#F0FAFF 100%); }
+    .thumb-other { background: linear-gradient(135deg,#FEF3C7 0%,#FFFBEB 100%); }
+  </style>
 </head>
-<body>
+<body class="antialiased bg-white text-slate-900">
+
   <!-- NAV -->
-  <div class="nav-wrap" role="navigation" aria-label="Main navigation">
-    <div style="display:flex; gap:12px; align-items:center;">
-      <a class="brand" href="#" aria-label="Homepage">Muhammed Shasal</a>
-      <nav class="nav-links d-none d-md-flex" aria-label="Primary">
+  <header class="nav-wrap" role="banner" aria-label="Main navigation">
+    <!-- small logo badge on left -->
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="brand-badge" aria-hidden="true">1+</div>
+      <!-- show desktop links -->
+      <nav class="hidden md:flex nav-links gap-2" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
 
+    <!-- right: actions -->
     <div class="nav-actions">
-      <a class="btn-secondary d-none d-md-inline" href="#projects">View Work</a>
-      <a class="btn-primary" href="assets/muhammed shasal tk_resume.pdf" download>Download CV</a>
-      <a class="d-md-none" href="#" aria-label="Open menu" style="padding:8px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h18M3 6h18M3 18h18"/></svg></a>
-    </div>
-  </div>
+      <!-- download visible on desktop only -->
+      <a class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-white" href="assets/muhammed shasal tk_resume.pdf" download style="background:var(--accent)">Download CV</a>
 
-  <!-- HERO -->
-  <header class="hero" role="banner" aria-labelledby="heroTitle">
-    <div class="container-xl">
-      <div class="hero-heading" aria-hidden="false">
-        <span class="explore">EXPLORE MY</span>
-        <h1 id="heroTitle" class="portfolio">PORTFOLIO</h1>
-        <p class="hero-sub">UI/UX designer & <strong>PHP · Laravel</strong> developer — design to deploy, product-first approach.</p>
-      </div>
-
-      <div class="hero-row" role="region" aria-label="Hero content">
-        <!-- left -->
-        <div class="hero-left" aria-hidden="false">
-          <div class="designer-pill">DESIGNER EST. 2024</div>
-          <button class="scroll-chev" id="scrollToAbout" aria-label="Scroll to about">
-            <i class="bi bi-arrow-down-right-circle-fill"></i>
-          </button>
-        </div>
-
-        <!--  picture\ -->
-        <div class="hero-center" role="img" aria-hidden="true">
-          <picture>
-            <img src="assets/profile.png" alt="Muhammed Shasal — portrait" width="800" height="1000" loading="eager">
-          </picture>
-        </div>
-
-        <!-- right -->
-        <div class="hero-right" aria-hidden="false">
-          <div class="tagline">I design interfaces and build production apps using Laravel — UX-first, accessible, and maintainable.</div>
-          <ul class="services-list" aria-label="Skills">
-            <li>UI / UX</li>
-            <li>PHP · Laravel</li>
-            <li>Front-end (HTML/CSS/JS)</li>
-            <li>Figma / Prototyping</li>
-            <li>Webflow & Handoff</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="hero-ctas" aria-hidden="false">
-        <a class="btn-primary" href="">See Featured Work</a>
-        <a class="btn-secondary" href="assets/muhammed shasal tk_resume.pdf" download>Download CV</a>
-      </div>
+      <!-- mobile menu toggle -->
+      <button id="mobileToggle" class="md:hidden p-2 rounded-full border border-slate-100" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open mobile menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
     </div>
   </header>
 
-  <!-- ABOUT -->
-  <section id="about" class="container-xl" aria-labelledby="aboutTitle">
-    <div style="display:flex; gap:24px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;">
-      <div style="flex:1; min-width:260px;">
-        <h2 id="aboutTitle">About</h2>
-        <p class="about-text muted">
-          I’m a UI/UX-focused web developer specializing in building production-ready applications using <strong>PHP & Laravel</strong>. I design clear, usable interfaces and implement them with maintainable backend code — REST APIs, authentication, queues, and deployment. I enjoy turning research into measurable product outcomes and collaborating closely with product teams.
-        </p>
-        <div style="margin-top:14px;">
-          <a class="btn-secondary" href="#projects">View Work</a>
-          <a class="btn-primary" href="#contact" style="margin-left:10px;">Hire Me</a>
-        </div>
-      </div>
-
-      <div style="min-width:260px; max-width:420px; text-align:right;">
-        <p style="font-weight:800; margin-bottom:8px;">Tech & Tools</p>
-        <div style="display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap;">
-          <span class="tech-pill">Laravel</span>
-          <span class="tech-pill">PHP</span>
-          <span class="tech-pill">MySQL</span>
-          <span class="tech-pill">Tailwind</span>
-          <span class="tech-pill">Figma</span>
-          <span class="tech-pill">Webflow</span>
-        </div>
-      </div>
+  <!-- MOBILE SLIDE-DOWN MENU (in-flow) -->
+  <div id="mobileMenu" class="mobile-menu-wrap" aria-hidden="true">
+    <div class="mobile-menu-inner">
+      <nav aria-label="mobile nav" style="display:flex;flex-direction:column;gap:6px;">
+        <a href="#about" class="px-3 py-2 rounded-md">About</a>
+        <a href="#projects" class="px-3 py-2 rounded-md">Projects</a>
+        <a href="#contact" class="px-3 py-2 rounded-md">Contact</a>
+        <a href="assets/muhammed shasal tk_resume.pdf" download class="px-3 py-2 rounded-md bg-slate-50">Download CV</a>
+      </nav>
     </div>
-  </section>
+  </div>
 
-  <!-- PROJECTS  -->
-  <section id="projects" class="container-xl" aria-labelledby="projectsTitle">
-    <h2 id="projectsTitle" style="text-align:center; font-weight:900; margin-bottom:12px;">Featured Projects</h2>
-    <div class="projects-grid">
-      <!-- Project 1 -->
-      <article class="project-card" aria-labelledby="p1">
-        <div class="project-thumb" role="img" aria-label="TaskFlow screenshot"></div>
-        <div class="project-body">
-          <h4 id="p1">Resort Booking UI — Luxury Stays</h4>
-          <p style="color:var(--muted); margin:0;">Role: UI/UX Design,Prototyping & Frontend— Designed a high-fidelity booking platform in Figma for luxury hospitality. Delivered a complete, modern UI kit covering login, browsing, and seamless room reservation flow across mobile and desktop.</p>
-          <div style="display:flex; gap:8px; margin-top:auto; align-items:center;">
-            <div class="tech-pills">
-              <span class="tech-pill">Figma</span>
-              <span class="tech-pill">Html</span>
-              <span class="tech-pill">Bootstrap</span>
-            </div>
-            <!-- <a href="#" style="margin-left:auto; font-weight:700; color:var(--accent);">Read case study →</a> -->
-          </div>
-        </div>
-      </article>
+  <main class="max-w-6xl mx-auto px-4">
+    <!-- HERO -->
+    <section class="pt-6 pb-12 text-center">
+      <span class="block text-sm text-slate-600 tracking-wide">EXPLORE MY</span>
 
-      <!-- Project 2 -->
-      <article class="project-card" aria-labelledby="p2">
-        <div class="project-thumb" role="img" aria-label="Landing screenshot"></div>
-        <div class="project-body">
-          <h4 id="p2">Hostello — Admin Room Management</h4>
-          <p style="color:var(--muted); margin:0;">Role: Full-Stack Developer (PHP) — Built a secure, custom administrative panel to manage hostel admission, structure (blocks/rooms), occupancy, and payment logic. Focused on efficient, scalable database interaction.</p>
-          <div style="display:flex; gap:8px; margin-top:auto; align-items:center;">
-            <div class="tech-pills">
-              <span class="tech-pill">Figma</span>
-              <span class="tech-pill">PHP</span>
-              <span class="tech-pill">MySQL</span>
-            </div>
-            <!-- <a href="#" style="margin-left:auto; font-weight:700; color:var(--accent);">Read case study →</a> -->
-          </div>
-        </div>
-      </article>
-
-      <!-- Project 3 -->
-      <article class="project-card" aria-labelledby="p3">
-        <div class="project-thumb" role="img" aria-label="Mobile UI Kit screenshot"></div>
-        <div class="project-body">
-          <h4 id="p3">Real-Time Order Management</h4>
-          <p style="color:var(--muted); margin:0;">Role: Full-Stack Laravel Developer — Developed a complete Hotel Point-of-Sale (POS) system in Laravel, handling table assignment, order tracking, dynamic billing, and staff order dispatch in real time.</p>
-          <div style="display:flex; gap:8px; margin-top:auto; align-items:center;">
-            <div class="tech-pills">
-              <span class="tech-pill">figma</span>
-              <span class="tech-pill">Laravel</span>
-              <span class="tech-pill">MySQL</span>
-            </div>
-            <!-- <a href="#" style="margin-left:auto; font-weight:700; color:var(--accent);">Read case study →</a> -->
-          </div>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="container-xl" aria-labelledby="contactTitle">
-    <h2 id="contactTitle" style="margin-bottom:12px;">Contact</h2>
-    <div class="contact-grid">
-      <div style="flex:1; min-width:260px;">
-        <p style="font-weight:700; margin:0 0 8px;">Let's build something great.</p>
-        <p class="muted">I’m open to full-time roles, contract work, and freelance projects. Tell me the scope and timeline and I’ll respond quickly.</p>
-        <div style="margin-top:12px;">
-          <a class="btn-primary" href="mailto:shazalshaz770@gmail.com">Email me</a>
-          <a class="btn-secondary" style="margin-left:10px" href="assets/resume.pdf" download>Download CV</a>
+      <!-- typed lines: same scale & center -->
+      <div class="mt-3">
+        <h1 id="typedName" class="typed-size" aria-live="polite" role="status"></h1>
+        <div class="mt-2">
+          <div id="typedRole1" class="typed-size" aria-live="polite" role="status"></div>
+          <div id="typedRole2" class="typed-size" aria-live="polite" role="status"></div>
         </div>
       </div>
 
-      <div style="min-width:260px;">
-        <div class="contact-card">
-          <p style="margin:0 0 8px; font-weight:700;">Quick Info</p>
-          <p style="margin:0;color:var(--muted)">Location:Thalassery</p>
-          <p style="margin:8px 0 0;color:var(--muted)">Available: Immediately</p>
-          <hr style="border-color:rgba(0,0,0,0.04); margin:14px 0;">
-          <p style="margin:0; font-weight:700;">Links</p>
-          <p style="margin:6px 0 0;">
-            <a href="https://github.com/shazaal" aria-label="GitHub">GitHub</a> • <a href="www.linkedin.com/in/shazzal" aria-label="LinkedIn">LinkedIn</a> • <a href="https://www.behance.net/_sha" aria-label="Behance">Behance</a>
+      <p class="mt-4 text-slate-600 max-w-2xl mx-auto">design to deploy — product-first approach.</p>
+
+      <!-- simplified hero composition for mobile-first (portrait centered) -->
+      <div class="mt-8 flex flex-col items-center gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <!-- left: designer text (desktop only) -->
+        <div class="hidden lg:block lg:w-56">
+          <div class="designer-plain" aria-hidden="true">
+            <svg class="w-5 h-5 text-slate-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 10l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>DESIGNER EST. 2023</span>
+          </div>
+        </div>
+
+        <!-- portrait (circular) -->
+        <div class="flex-1 flex items-center justify-center">
+          <div id="portraitWrap" class="portrait-card">
+            <img id="profileImg" src="assets/profile.png" alt="Muhammed Shasal — portrait" />
+          </div>
+        </div>
+
+        <!-- right: skills (simpler on mobile) -->
+        <aside class="w-full lg:w-56 flex flex-col gap-2 items-center lg:items-end text-center lg:text-right">
+          <p class="text-slate-600 max-w-[260px]">I design interfaces and build production apps using Laravel — UX-first, accessible, and maintainable.</p>
+          <ul class="flex flex-col gap-2 text-xs font-extrabold uppercase text-slate-700">
+            <li>UI / UX</li>
+            <li>PHP · Laravel</li>
+            <li>Front-end</li>
+          </ul>
+        </aside>
+      </div>
+
+      <div class="mt-6 flex gap-3 justify-center">
+        <a href="#projects" class="px-5 py-2 rounded-full text-white font-semibold" style="background:var(--accent)">See Featured Work</a>
+        <a href="assets/muhammed shasal tk_resume.pdf" download class="px-5 py-2 rounded-full border border-slate-200">Download CV</a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-10">
+      <div class="grid lg:grid-cols-3 gap-6 items-start">
+        <div class="lg:col-span-2">
+          <h2 class="text-2xl font-bold">About</h2>
+          <p class="mt-3 text-slate-600 max-w-xl">I’m a UI/UX-focused web developer specializing in production-ready PHP & Laravel applications. I design clear interfaces and implement maintainable backend systems — REST APIs, auth, queues, deploy.</p>
+          <div class="mt-4 flex gap-3">
+            <a href="#projects" class="px-4 py-2 rounded-full border border-slate-200">View Work</a>
+            <a href="#contact" class="px-4 py-2 rounded-full text-white" style="background:var(--accent)">Hire Me</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="text-sm font-extrabold">Tech & Tools</div>
+          <div class="flex gap-2 flex-wrap justify-end mt-3">
+            <span class="px-3 py-1 rounded-full bg-slate-50 text-xs font-semibold">Laravel</span>
+            <span class="px-3 py-1 rounded-full bg-slate-50 text-xs font-semibold">PHP</span>
+            <span class="px-3 py-1 rounded-full bg-slate-50 text-xs font-semibold">MySQL</span>
+            <span class="px-3 py-1 rounded-full bg-slate-50 text-xs font-semibold">Tailwind</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="py-10">
+      <h2 class="text-2xl font-bold text-center">Featured Projects</h2>
+      <p class="text-center text-slate-600 mt-2">A curated selection of recent work</p>
+
+      <div class="mt-6 grid sm:grid-cols-2 gap-6">
+        <article class="rounded-xl overflow-hidden shadow-sm border p-0 bg-white">
+          <div class="h-44 thumb-taskflow"></div>
+          <div class="p-4"><h3 class="font-semibold">Resort Booking UI — Luxury Stays</h3><p class="text-sm text-slate-600">UI/UX & Frontend</p></div>
+        </article>
+        <article class="rounded-xl overflow-hidden shadow-sm border p-0 bg-white">
+          <div class="h-44 thumb-hostello"></div>
+          <div class="p-4"><h3 class="font-semibold">Hostello — Admin Room Management</h3><p class="text-sm text-slate-600">PHP & MySQL</p></div>
+        </article>
+        <article class="rounded-xl overflow-hidden shadow-sm border p-0 bg-white">
+          <div class="h-44 thumb-pos"></div>
+          <div class="p-4"><h3 class="font-semibold">Real-Time Order Management</h3><p class="text-sm text-slate-600">Laravel POS</p></div>
+        </article>
+        <article class="rounded-xl overflow-hidden shadow-sm border p-0 bg-white">
+          <div class="h-44 thumb-other"></div>
+          <div class="p-4"><h3 class="font-semibold">Onboarding UX — Activation Boost</h3><p class="text-sm text-slate-600">Research & UX</p></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-10">
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div>
+          <h2 class="text-2xl font-bold">Contact</h2>
+          <p class="mt-3 text-slate-600">Open to full-time roles, contracts, or freelance — tell me about the project and timeline.</p>
+          <form id="contactForm" class="mt-4 grid gap-3 max-w-xl" action="https://formspree.io/f/yourFormID" method="POST">
+            <input type="text" name="_gotcha" style="display:none">
+            <input id="name" name="name" required class="p-3 border rounded-lg" placeholder="Your name" />
+            <input id="email" name="email" type="email" required class="p-3 border rounded-lg" placeholder="you@email.com" />
+            <textarea id="message" name="message" rows="5" required class="p-3 border rounded-lg" placeholder="Tell me about the project"></textarea>
+            <div class="flex gap-3 items-center">
+              <button id="submitBtn" class="px-4 py-2 rounded-full text-white" style="background:var(--accent)">Send message</button>
+              <button id="mailtoFallback" type="button" class="px-4 py-2 rounded-full border">Email instead</button>
+              <div id="formStatus" class="text-sm text-slate-600" aria-live="polite"></div>
+            </div>
+          </form>
+        </div>
+
+        <aside class="contact-card p-6 rounded-xl border bg-white shadow-sm">
+          <p class="font-semibold">Quick Info</p>
+          <p class="text-sm text-slate-600 mt-2">Location: Thalassery</p>
+          <p class="text-sm text-slate-600 mt-1">Available: Immediately</p>
+          <hr class="my-4 border-slate-100">
+          <p class="font-semibold">Links</p>
+          <p class="text-sm mt-2">
+            <a href="https://github.com/shazaal" target="_blank" rel="noopener noreferrer" class="underline">GitHub</a> •
+            <a href="https://www.linkedin.com/in/shazzal" target="_blank" rel="noopener noreferrer" class="underline">LinkedIn</a> •
+            <a href="https://www.behance.net/_sha" target="_blank" rel="noopener noreferrer" class="underline">Behance</a>
           </p>
-        </div>
+        </aside>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FOOTER -->
-   
-  <footer class="container-xl">
-    <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-      <div>© <strong>Muhammed Shasal</strong></div>
-    
-  </footer>
+    <footer class="py-8 text-center text-sm text-slate-600 border-t border-slate-100">© <strong>Muhammed Shasal</strong></footer>
+  </main>
 
- 
-
- 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-  <script src="assets/button.js"></script>
-  <script src="assets/button1.js"></script>
-
-
- 
   <script>
-   
     document.addEventListener('DOMContentLoaded', () => {
-      const heroHeading = document.querySelector('.hero-heading');
-      const heroRow = document.querySelector('.hero-row');
-      [heroHeading, heroRow].forEach((el, i) => {
-        el.style.opacity = 0;
-        el.style.transform = 'translateY(10px)';
-        setTimeout(()=>{ el.style.transition = 'opacity .7s ease, transform .7s ease'; el.style.opacity = 1; el.style.transform = 'translateY(0)'; }, 120 + i*160);
+      gsap.registerPlugin(ScrollTrigger);
+
+      // portrait float (subtle)
+      gsap.from('.portrait-card', { opacity: 0, y: 14, duration: 0.9, ease: 'power3.out' });
+      gsap.to('.portrait-card', { y: -8, duration: 2.6, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+
+      // section reveal (subtle)
+      document.querySelectorAll('section').forEach(section => {
+        gsap.from(section, {
+          scrollTrigger: { trigger: section, start: 'top 85%', toggleActions: 'play none none none' },
+          opacity: 0, y: 18, duration: 0.7, ease: 'power2.out', stagger: 0.04
+        });
       });
 
-    
-      const btn = document.getElementById('scrollToAbout');
-      if (btn) btn.addEventListener('click', e => {
-        e.preventDefault();
-        document.getElementById('aboutTitle').scrollIntoView({behavior:'smooth', block:'start'});
+      // -------------------------
+      // Mobile slide-down menu (inline) - accessible
+      // -------------------------
+      const toggle = document.getElementById('mobileToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+
+      function openMenu() {
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+      function closeMenu() {
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+      toggle.addEventListener('click', () => {
+        if (mobileMenu.classList.contains('open')) closeMenu(); else openMenu();
       });
 
-    
-      document.querySelectorAll('a, button').forEach(el => el.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') el.click();
-      }));
+      // close menu on link click
+      mobileMenu.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') closeMenu();
+      });
+
+      // -------------------------
+      // Typing animation (same-size lines) - forward/back letter-by-letter
+      // -------------------------
+      const typedName = document.getElementById('typedName');
+      const typedRole1 = document.getElementById('typedRole1');
+      const typedRole2 = document.getElementById('typedRole2');
+
+      const lines = [
+        { el: typedName, text: 'MUHAMMED SHASAL' },
+        { el: typedRole1, text: 'UI/UX DESIGNER' },
+        { el: typedRole2, text: 'WEB DEVELOPER' }
+      ];
+      const cursor = document.createElement('span'); cursor.className = 'typing-cursor';
+      const wait = ms => new Promise(r => setTimeout(r, ms));
+
+      async function typeText(el, text, speed=60) {
+        el.textContent = ''; el.appendChild(cursor);
+        for (let i=1;i<=text.length;i++){
+          el.textContent = text.slice(0,i);
+          el.appendChild(cursor);
+          await wait(speed + Math.round(Math.random()*22));
+        }
+      }
+      async function deleteText(el, speed=36) {
+        let t = el.textContent || '';
+        for (let i=t.length;i>=0;i--){
+          el.textContent = t.slice(0,i);
+          el.appendChild(cursor);
+          await wait(speed + Math.round(Math.random()*18));
+        }
+      }
+
+      (async function loop(){
+        const pause = 900;
+        while(true){
+          await typeText(lines[0].el, lines[0].text, 60); await wait(pause);
+          await deleteText(lines[0].el, 30); await wait(200);
+
+          await typeText(lines[1].el, lines[1].text, 55); await wait(pause);
+          await deleteText(lines[1].el, 30); await wait(200);
+
+          await typeText(lines[2].el, lines[2].text, 55); await wait(pause);
+          await deleteText(lines[2].el, 30); await wait(600);
+        }
+      })().catch(console.error);
+
+      // accessibility - Enter triggers click
+      document.querySelectorAll('a, button').forEach(el => el.addEventListener('keydown', (e) => { if (e.key === 'Enter') el.click(); }));
+
+      // CONTACT FORM handling (unchanged)
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('formStatus');
+      const submitBtn = document.getElementById('submitBtn');
+      const mailtoFallback = document.getElementById('mailtoFallback');
+
+      if (mailtoFallback) {
+        mailtoFallback.addEventListener('click', () => {
+          const name = document.getElementById('name').value || '';
+          const message = document.getElementById('message').value || '';
+          const email = document.getElementById('email').value || 'shazalshaz770@gmail.com';
+          const body = encodeURIComponent(`${message}\n\n— ${name}`);
+          window.location.href = `mailto:${email}?subject=${encodeURIComponent('Work inquiry from portfolio')}&body=${body}`;
+        });
+      }
+
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const name = form.name.value.trim();
+          const email = form.email.value.trim();
+          const message = form.message.value.trim();
+          if (!name || !email || !message) {
+            status.textContent = 'Please complete all fields.';
+            return;
+          }
+          submitBtn.disabled = true;
+          const original = submitBtn.textContent;
+          submitBtn.textContent = 'Sending…';
+          status.textContent = '';
+          try {
+            const res = await fetch(form.action, { method:'POST', headers:{'Accept':'application/json'}, body:new FormData(form) });
+            if (res.ok) { status.textContent = 'Thanks — message sent.'; form.reset(); }
+            else { const data = await res.json().catch(()=>({})); status.textContent = data?.errors?.map(e=>e.message).join(', ') || 'Something went wrong.'; }
+          } catch(err) { status.textContent = 'Network error. Try email fallback.'; } finally { submitBtn.disabled=false; submitBtn.textContent = original; }
+        });
+      }
+
+      // If you want to force rectangular portrait (no mask), remove class 'portrait-card' circle style or replace with rounded rectangle:
+      // document.getElementById('portraitWrap').classList.remove('mask-circle');
+
     });
   </script>
 </body>
