@@ -1,735 +1,1541 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Muhammed Shasal — Portfolio</title>
-  <meta name="description" content="Muhammed Shasal — UI/UX designer & Laravel developer" />
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { 
-            accent: '#000000',
-            muted: '#6b7280',
-            light: '#f8fafc',
-            dark: '#111827'
-          },
-          borderRadius: { xl2: '18px' }
-        },
-        fontFamily: { sans: ['Inter','system-ui','Segoe UI','Roboto','Arial'] }
-      }
-    }
-  </script>
-
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-
-  <style>
-    :root{ --accent:#000000; --muted:#6b7280; --light:#f8fafc; --dark:#111827; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Muhammed Shasal — Creative UI/UX Designer & Developer</title>
     
-    body{ 
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial; 
-      -webkit-font-smoothing:antialiased;
-      background-color: #ffffff;
-      color: #1f2937;
-    }
-    
-    a:focus, button:focus { 
-      outline: 3px solid rgba(0,0,0,0.12); 
-      outline-offset: 3px; 
-      border-radius:8px; 
-    }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css">
 
-    /* Enhanced Navigation */
-    .nav-wrap {
-      max-width: 1100px;
-      margin: 14px auto;
-      padding: 12px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.95);
-      box-shadow: 0 8px 28px rgba(16,24,40,0.08);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:8px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      backdrop-filter: blur(10px);
-    }
+    <style>
+        :root {
+            --bg-color: #f6f6f3; /* Stark, high-end off-white background */
+            --text-color: #0d0d0f; /* Pitch black for maximum contrast */
+            --border-color: rgba(0, 0, 0, 0.12); /* Clean editorial grid lines */
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --accent-color: #000000;
+            --sub-text: #5c5c5e; /* Premium warm charcoal gray for light mode */
+            --hey-color: #84827a; /* Highly refined warm designer gray for "Hey, I'm" */
+            --grid-line: rgba(0, 0, 0, 0.05);
+            --pill-bg: rgba(0, 0, 0, 0.04);
+            --inverse-text: #ffffff;
+            --menu-bg: rgba(246, 246, 243, 0.45); /* Premium frosted glassmorphism white */
+            --mockup-bg: #ecece9;
+            --mockup-card-bg: rgba(255, 255, 255, 0.7);
+            --mockup-border: rgba(0, 0, 0, 0.08);
+            --mockup-text: #0d0d0f;
+            --mockup-subtext: #71717a;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(0, 0, 0, 0.1);
+        }
 
-    .nav-links a { 
-      color:#111827; 
-      font-weight:500; 
-      padding:8px 12px; 
-      border-radius:10px; 
-      transition: all 0.2s ease;
-    }
-    
-    .nav-links a:hover {
-      background: rgba(0,0,0,0.04);
-    }
+        body.dark-theme {
+            --bg-color: #0d0d0f; /* Deep obsidian background */
+            --text-color: #f5f5f5; /* Premium off-white text */
+            --border-color: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(14, 14, 14, 0.9);
+            --accent-color: #ffffff;
+            --sub-text: #8c8c8c; /* Premium subtle silver gray for dark mode */
+            --hey-color: #929089; /* Refined low-contrast silver-bronze for "Hey, I'm" */
+            --grid-line: rgba(255, 255, 255, 0.05);
+            --pill-bg: rgba(255, 255, 255, 0.06);
+            --inverse-text: #0d0d0f;
+            --menu-bg: rgba(13, 13, 15, 0.45); /* Premium frosted glassmorphism dark */
+            --mockup-bg: #111113;
+            --mockup-card-bg: rgba(0, 0, 0, 0.6);
+            --mockup-border: rgba(255, 255, 255, 0.05);
+            --mockup-text: #f5f5f5;
+            --mockup-subtext: #a1a1aa;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
 
-    /* Mobile menu */
-    .mobile-menu-wrap { 
-      overflow: hidden; 
-      transition: max-height .36s cubic-bezier(.2,.9,.3,1), opacity .28s ease; 
-      max-height:0; 
-      opacity:0; 
-    }
-    
-    .mobile-menu-wrap.open { 
-      max-height: 460px; 
-      opacity:1; 
-    }
-    
-    .mobile-menu-inner { 
-      padding:12px; 
-      display:flex; 
-      flex-direction:column; 
-      gap:8px; 
-    }
-
-    /* Typography */
-    .typed-size { 
-      font-weight:800; 
-      letter-spacing:-0.6px; 
-      line-height:0.95; 
-      font-size: clamp(26px, 7.4vw, 56px); 
-      text-wrap:balance; 
-      text-align:center; 
-      min-height: 1.2em;
-    }
-
-    .typing-cursor { 
-      display:inline-block; 
-      width:3px; 
-      background:var(--accent); 
-      margin-left:2px; 
-      animation: blink 1s steps(2,start) infinite; 
-      vertical-align:bottom; 
-      height:1.1em; 
-    }
-    
-    @keyframes blink { 
-      50%{opacity:0} 
-      100%{opacity:1} 
-    }
-
-    /* Enhanced Portrait */
-    .portrait-container {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 2rem 0;
-    }
-    
-    .portrait-card { 
-      background: transparent !important; 
-      border: none !important; 
-      box-shadow: 0 24px 48px rgba(0,0,0,0.08); 
-      overflow:hidden; 
-      border-radius: 20px;
-      width: 280px;
-      height: 280px;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .portrait-card img { 
-      display:block; 
-      width:100%; 
-      height:100%; 
-      object-fit:cover; 
-    }
-    
-    .portrait-backdrop {
-      position: absolute;
-      width: 320px;
-      height: 320px;
-      background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-      border-radius: 24px;
-      z-index: 1;
-      transform: rotate(-5deg);
-    }
-
-    /* Project cards */
-    .project-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid rgba(0,0,0,0.08);
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-    }
-
-    /* Email button styling */
-    .email-button {
-      background: #000000;
-      color: white;
-      padding: 14px 32px;
-      border-radius: 10px;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.2);
-    }
-    
-    .email-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-      background: #111827;
-    }
-
-    /* Hero section improvements */
-    .hero-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 2rem;
-    }
-    
-    .hero-text {
-      order: 2;
-    }
-    
-    .hero-portrait {
-      order: 1;
-    }
-    
-    .hero-actions {
-      order: 3;
-    }
-
-    /* Mobile-first responsive design */
-    @media (min-width: 768px) {
-      .hero-content {
-        flex-direction: row;
-        text-align: left;
-        align-items: flex-end;
-        gap: 3rem;
-      }
-      
-      .hero-text {
-        order: 1;
-        flex: 1;
-      }
-      
-      .hero-portrait {
-        order: 2;
-        flex: 0 0 auto;
-      }
-      
-      .hero-actions {
-        order: 3;
-        width: 100%;
-        margin-top: 2rem;
-      }
-      
-      .portrait-card {
-        width: 320px;
-        height: 320px;
-      }
-      
-      .portrait-backdrop {
-        width: 360px;
-        height: 360px;
-      }
-    }
-
-    @media (min-width:1024px) {
-      .portrait-card { 
-        border-radius:20px; 
-        width:380px;
-        height: 380px;
-      }
-      
-      .portrait-backdrop {
-        width: 420px;
-        height: 420px;
-      }
-    }
-    
-    @media (max-width:880px) {
-      .typed-size { 
-        font-size: clamp(22px, 12vw, 42px); 
-      }
-      
-      .nav-wrap { 
-        margin: 10px 12px; 
-      }
-      
-      .hero-content {
-        gap: 1.5rem;
-      }
-    }
-
-    /* Project placeholders - monochrome versions */
-    .thumb-taskflow { 
-      background: linear-gradient(135deg,#f3f4f6 0%,#e5e7eb 100%); 
-    }
-    
-    .thumb-hostello { 
-      background: linear-gradient(135deg,#f5f5f5 0%,#e5e5e5 100%); 
-    }
-    
-    .thumb-pos { 
-      background: linear-gradient(135deg,#f8fafc 0%,#e2e8f0 100%); 
-    }
-    
-    .thumb-other { 
-      background: linear-gradient(135deg,#f9fafb 0%,#d1d5db 100%); 
-    }
-
-    /* Section spacing */
-    section {
-      padding: 4rem 0;
-    }
-    
-    @media (min-width: 768px) {
-      section {
-        padding: 6rem 0;
-      }
-    }
-
-    /* Skills grid improvements */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 0.75rem;
-    }
-    
-    @media (min-width: 640px) {
-      .skills-grid {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: 1rem;
-      }
-    }
-  </style>
-</head>
-<body class="antialiased bg-white text-gray-900">
-
-  <!-- NAV -->
-  <header class="nav-wrap" role="banner" aria-label="Main navigation">
-    <div style="display:flex;align-items:center;gap:10px;">
-      <a href="#" class="text-xl font-bold">Muhammed Shasal</a>
-      <nav class="hidden md:flex nav-links gap-2" aria-label="Primary">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-
-    <div class="nav-actions">
-      <a class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-white bg-black hover:bg-gray-800 transition-colors" href="assets/muhammed shasal tk_resume.pdf" download>Download CV</a>
-
-      <button id="mobileToggle" class="md:hidden p-2 rounded-full border border-gray-200" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open mobile menu">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-      </button>
-    </div>
-  </header>
-
-  <!-- MOBILE SLIDE-DOWN MENU -->
-  <div id="mobileMenu" class="mobile-menu-wrap" aria-hidden="true">
-    <div class="mobile-menu-inner">
-      <nav aria-label="mobile nav" style="display:flex;flex-direction:column;gap:6px;">
-        <a href="#about" class="px-3 py-2 rounded-md hover:bg-gray-50">About</a>
-        <a href="#projects" class="px-3 py-2 rounded-md hover:bg-gray-50">Projects</a>
-        <a href="#contact" class="px-3 py-2 rounded-md hover:bg-gray-50">Contact</a>
-        <a href="assets/muhammed shasal tk_resume.pdf" download class="px-3 py-2 rounded-md bg-gray-50">Download CV</a>
-      </nav>
-    </div>
-  </div>
-
-  <main class="max-w-6xl mx-auto px-4">
-    <!-- HERO -->
-    <section class="pt-6 pb-12">
-      <div class="hero-content">
-        <div class="hero-text">
-          <span class="block text-sm text-gray-600 tracking-wide uppercase font-medium mb-4">UI/UX Designer & Developer</span>
-
-          <!-- Fixed "Hey, I'm" text with animated titles -->
-          <div class="mb-4">
-            <h1 class="typed-size">
-              <span style="font-weight: 600; color: #6b7280;">Hey, I'm</span>
-              <br>
-              <span id="typedText" aria-live="polite" role="status"></span>
-            </h1>
-          </div>
-
-          <p class="text-gray-600 max-w-xl mb-6">I design interfaces and build production apps using Laravel — UX-first, accessible, and maintainable.</p>
-          
-          <div class="skills-grid mb-6">
-            <span class="px-3 py-2 rounded-lg bg-gray-100 text-sm font-semibold text-center">UI / UX Design</span>
-            <span class="px-3 py-2 rounded-lg bg-gray-100 text-sm font-semibold text-center">PHP · Laravel</span>
-            <span class="px-3 py-2 rounded-lg bg-gray-100 text-sm font-semibold text-center">Front-end Dev</span>
-            <span class="px-3 py-2 rounded-lg bg-gray-100 text-sm font-semibold text-center">Responsive Design</span>
-          </div>
-        </div>
-        
-        <div class="hero-portrait">
-          <div class="portrait-container">
-            <div class="portrait-backdrop"></div>
-            <div class="portrait-card">
-              <img id="profileImg" src="assets/profile.png" alt="Muhammed Shasal — portrait" />
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="hero-actions flex flex-col sm:flex-row gap-3 justify-center items-center">
-        <a href="#projects" class="w-full sm:w-auto px-5 py-3 rounded-full text-white font-semibold bg-black hover:bg-gray-800 transition-colors text-center">See Featured Work</a>
-        <a href="assets/muhammed shasal tk_resume.pdf" download class="w-full sm:w-auto px-5 py-3 rounded-full border border-gray-300 hover:border-gray-400 transition-colors text-center">Download CV</a>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="py-10">
-      <div class="grid lg:grid-cols-3 gap-8 items-start">
-        <div class="lg:col-span-2">
-          <h2 class="text-3xl font-bold mb-6">About Me</h2>
-          <p class="text-lg text-gray-600 max-w-xl mb-6">I'm a UI/UX-focused web developer specializing in production-ready PHP & Laravel applications. I design clear interfaces and implement maintainable backend systems </p>
-          <div class="flex flex-col sm:flex-row gap-3">
-            <a href="#projects" class="px-5 py-3 rounded-full border border-gray-300 hover:border-gray-400 transition-colors text-center">View My Work</a>
-            <a href="#contact" class="px-5 py-3 rounded-full text-white bg-black hover:bg-gray-800 transition-colors text-center">Hire Me</a>
-          </div>
-        </div>
-
-        <div class="bg-gray-50 p-6 rounded-2xl">
-          <div class="text-lg font-bold mb-4">Tech & Tools</div>
-          <div class="flex flex-wrap gap-3">
-            <span class="px-4 py-2 rounded-full bg-white text-sm font-semibold shadow-sm">Laravel</span>
-            <span class="px-4 py-2 rounded-full bg-white text-sm font-semibold shadow-sm">PHP</span>
-            <span class="px-4 py-2 rounded-full bg-white text-sm font-semibold shadow-sm">MySQL</span>
-            <span class="px-4 py-2 rounded-full bg-white text-sm font-semibold shadow-sm">Bootstrap</span>
-            <span class="px-4 py-2 rounded-full bg-white text-sm font-semibold shadow-sm">JavaScript</span>
-            <span class="px-4 py-2 rounded-full bg-white text-sm font-semibold shadow-sm">Figma</span>
-            <span class="px-4 py-2 rounded-full bg-white text-sm font-semibold shadow-sm">Git</span>
-            <span class="px-4 py-2 rounded-full bg-white text-sm font-semibold shadow-sm">ajax</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section id="projects" class="py-10">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold mb-4">Featured Projects</h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">A curated selection of my recent work showcasing design and development expertise.</p>
-      </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-  <!-- Project 1 - Resort Booking -->
-  <article class="project-card rounded-xl overflow-hidden bg-white">
-    <div class="h-48 overflow-hidden relative">
-      <img src="assets/MacBook Pro 16_ - 8.jpg" alt="Resort Booking UI Design" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-      <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-        <div class="text-center text-white">
-          <div class="w-16 h-16 bg-white bg-opacity-20 rounded-lg flex items-center justify-center backdrop-blur-sm mx-auto mb-2">
-            <span class="font-bold text-white">RS</span>
-          </div>
-          <span class="font-medium">View Project</span>
-        </div>
-      </div>
-    </div>
-    <div class="p-6 flex-grow">
-      <h3 class="text-xl font-bold mb-2">Resort Booking — Luxury Stays</h3>
-      <p class="text-gray-600 mb-4">A beautiful UI/UX design for a luxury resort booking platform with intuitive user flows.</p>
-      <div class="flex flex-wrap gap-2 mt-auto">
-        <span class="px-3 py-1 rounded-full bg-gray-100 text-xs">UI/UX Design</span>
-        <span class="px-3 py-1 rounded-full bg-gray-100 text-xs">Figma</span>
-        <span class="px-3 py-1 rounded-full bg-gray-100 text-xs">Prototyping</span>
-      </div>
-    </div>
-  </article>
-  
-  <!-- Project 2 - Hostello -->
-  <article class="project-card rounded-xl overflow-hidden bg-white">
-    <div class="h-48 overflow-hidden relative">
-      <img src="assets/MacBook Pro 16_ - 3.png" alt="Hostello Admin Dashboard" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-      <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-        <div class="text-center text-white">
-          <div class="w-16 h-16 bg-white bg-opacity-20 rounded-lg flex items-center justify-center backdrop-blur-sm mx-auto mb-2">
-            <span class="font-bold text-white">HS</span>
-          </div>
-          <span class="font-medium">View Project</span>
-        </div>
-      </div>
-    </div>
-    <div class="p-6 flex-grow">
-      <h3 class="text-xl font-bold mb-2">Hostello — Admin Room Management</h3>
-      <p class="text-gray-600 mb-4">A comprehensive admin panel for managing hostel rooms, bookings, and payments.</p>
-      <div class="flex flex-wrap gap-2 mt-auto">
-        <span class="px-3 py-1 rounded-full bg-gray-100 text-xs">Laravel</span>
-        <span class="px-3 py-1 rounded-full bg-gray-100 text-xs">PHP</span>
-        <span class="px-3 py-1 rounded-full bg-gray-100 text-xs">MySQL</span>
-      </div>
-    </div>
-  </article>
-  
-  <!-- Project 3 - POS System -->
-  <article class="project-card rounded-xl overflow-hidden bg-white">
-    <div class="h-48 overflow-hidden relative">
-      <img src="assets/home page.jpg" alt="POS System Interface" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-      <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-        <div class="text-center text-white">
-          <div class="w-16 h-16 bg-white bg-opacity-20 rounded-lg flex items-center justify-center backdrop-blur-sm mx-auto mb-2">
-            <span class="font-bold text-white">POS</span>
-          </div>
-          <span class="font-medium">View Project</span>
-        </div>
-      </div>
-    </div>
-    <div class="p-6 flex-grow">
-      <h3 class="text-xl font-bold mb-2">Resort Booking System — Data Flow Diagram</h3>
-      <p class="text-gray-600 mb-4">A comprehensive DFD showcasing the data flow and processes for a luxury resort booking platform, including guest reservations, room management, and payment processing systems.</p>
-      <div class="flex flex-wrap gap-2 mt-auto">
-        <span class="px-3 py-1 rounded-full bg-gray-100 text-xs">Data Flow Diagrams</span>
-        <span class="px-3 py-1 rounded-full bg-gray-100 text-xs">Process Mapping</span>
-        <span class="px-3 py-1 rounded-full bg-gray-100 text-xs">UX Research</span>
-      </div>
-    </div>
-  </article>
-  
-  <!-- Project 4 - Onboarding UX -->
-  <article class="project-card rounded-xl overflow-hidden bg-white">
-    <div class="h-48 overflow-hidden relative">
-      <img src="assets/Screenshot 2025-10-07 032444.png" alt="Onboarding UX Design" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
-      <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-        <div class="text-center text-white">
-          <div class="w-16 h-16 bg-white bg-opacity-20 rounded-lg flex items-center justify-center backdrop-blur-sm mx-auto mb-2">
-            <span class="font-bold text-white">UX</span>
-          </div>
-          <span class="font-medium">View Project</span>
-        </div>
-      </div>
-    </div>
-    <div class="p-6 flex-grow">
-      <h3 class="text-xl font-bold mb-2">Onboarding UX — Activation Boost</h3>
-      <p class="text-gray-600 mb-4">User research and UX design to improve onboarding flows and increase activation rates.</p>
-      <div class="flex flex-wrap gap-2 mt-auto">
-        <span class="px-3 py-1 rounded-full bg-gray-100 text-xs">Research</span>
-        <span class="px-3 py-1 rounded-full bg-gray-100 text-xs">UX Design</span>
-        <span class="px-3 py-1 rounded-full bg-gray-100 text-xs">Analytics</span>
-      </div>
-    </div>
-  </article>
-</div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="py-10">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-6">Get In Touch</h2>
-        <p class="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
-          Have a project in mind or want to discuss potential opportunities? I'd love to hear from you.
-        </p>
-        
-        <!-- Aesthetic Email Button -->
-        <div class="flex justify-center mb-16">
-          <a href="mailto:shazalshaz770@gmail.com?subject=Portfolio%20Inquiry&body=Hi%20Muhammed,%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect." 
-             class="email-button">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            <span>Send me an email</span>
-          </a>
-        </div>
-        
-        <!-- Additional Contact Info -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="flex flex-col items-center">
-            <div class="bg-gray-100 p-3 rounded-lg mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <h4 class="font-medium text-lg mb-2">Location</h4>
-            <p class="text-gray-600">Thalassery, Kerala, India</p>
-          </div>
-          
-          <div class="flex flex-col items-center">
-            <div class="bg-gray-100 p-3 rounded-lg mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h4 class="font-medium text-lg mb-2">Email</h4>
-            <p class="text-gray-600">shazalshaz770@gmail.com</p>
-          </div>
-          
-          <div class="flex flex-col items-center">
-            <div class="bg-gray-100 p-3 rounded-lg mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-              </svg>
-            </div>
-            <h4 class="font-medium text-lg mb-2">Connect</h4>
-            <div class="flex space-x-4">
-              <a href="https://github.com/shazaal" target="_blank" class="text-gray-600 hover:text-black transition-colors">GitHub</a>
-              <a href="https://www.linkedin.com/in/shazzal" target="_blank" class="text-gray-600 hover:text-black transition-colors">LinkedIn</a>
-              <a href="https://www.behance.net/_sha" target="_blank" class="text-gray-600 hover:text-black transition-colors">Behance</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer class="py-8 text-center text-sm text-gray-600 border-t border-gray-100">© <strong>Muhammed Shasal</strong></footer>
-  </main>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Enhanced portrait animation
-      gsap.from('.portrait-card', { 
-        opacity: 0, 
-        y: 20, 
-        duration: 1, 
-        ease: 'power3.out',
-        delay: 0.3
-      });
-      
-      gsap.from('.portrait-backdrop', {
-        opacity: 0,
-        rotation: -15,
-        duration: 1.2,
-        ease: 'power3.out',
-        delay: 0.5
-      });
-
-      // Section reveal animations
-      document.querySelectorAll('section').forEach(section => {
-        gsap.from(section, {
-          scrollTrigger: { 
-            trigger: section, 
-            start: 'top 85%', 
-            toggleActions: 'play none none none' 
-          },
-          opacity: 0, 
-          y: 30, 
-          duration: 0.8, 
-          ease: 'power2.out'
-        });
-      });
-
-      // Mobile menu functionality
-      const toggle = document.getElementById('mobileToggle');
-      const mobileMenu = document.getElementById('mobileMenu');
-
-      function openMenu() {
-        mobileMenu.classList.add('open');
-        mobileMenu.setAttribute('aria-hidden', 'false');
-        toggle.setAttribute('aria-expanded', 'true');
-      }
-      
-      function closeMenu() {
-        mobileMenu.classList.remove('open');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
-      
-      toggle.addEventListener('click', () => {
-        if (mobileMenu.classList.contains('open')) closeMenu(); 
-        else openMenu();
-      });
-
-      // Close menu on link click
-      mobileMenu.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A') closeMenu();
-      });
-
-      // Enhanced Typewriter Animation
-      const typedText = document.getElementById('typedText');
-      const cursor = document.createElement('span');
-      cursor.className = 'typing-cursor';
-      
-      const texts = [
-        'Muhammed Shasal',
-        'UI/UX Designer', 
-        'Web Developer'
-      ];
-      
-      let textIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-      let isWaiting = false;
-      
-      function typeWriter() {
-        const currentText = texts[textIndex];
-        
-        if (isDeleting) {
-          // Delete text
-          typedText.textContent = currentText.substring(0, charIndex - 1);
-          charIndex--;
-          
-          if (charIndex === 0) {
-            isDeleting = false;
-            textIndex = (textIndex + 1) % texts.length;
-            isWaiting = true;
-            setTimeout(typeWriter, 500);
-            return;
-          }
-        } else if (isWaiting) {
-          // Just finished deleting, start typing new text
-          isWaiting = false;
-          typedText.textContent = '';
-          charIndex = 0;
-        } else {
-          // Type text
-          typedText.textContent = currentText.substring(0, charIndex + 1);
-          charIndex++;
-          
-          if (charIndex === currentText.length) {
-            // Finished typing, wait then start deleting
-            isWaiting = true;
-            setTimeout(() => {
-              isDeleting = true;
-              isWaiting = false;
-              typeWriter();
-            }, 2000);
-            return;
-          }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1), color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
         
-        // Add cursor
-        typedText.appendChild(cursor);
-        
-        // Set typing speed
-        const typeSpeed = isDeleting ? 50 : 100;
-        const randomVariation = Math.random() * 50;
-        
-        setTimeout(typeWriter, typeSpeed + randomVariation);
-      }
-      
-      // Start the typewriter effect
-      setTimeout(typeWriter, 1000);
+        .font-antonio {
+            font-family: 'Antonio', sans-serif;
+        }
 
-      // Accessibility - Enter triggers click
-      document.querySelectorAll('a, button').forEach(el => {
-        el.addEventListener('keydown', (e) => { 
-          if (e.key === 'Enter') el.click(); 
+        .font-mono-space {
+            font-family: 'Space Mono', monospace;
+        }
+
+        .theme-border {
+            border-color: var(--border-color);
+            transition: border-color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .theme-bg-pill {
+            background-color: var(--pill-bg);
+            transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .theme-subtext {
+            color: var(--sub-text);
+            transition: color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .theme-hey-color {
+            color: var(--hey-color);
+            transition: color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Fine grain noise overlay for organic editorial texture */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            content: "";
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 9999;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Apple-style luxurious glassmorphism effect */
+        .apple-glass {
+            backdrop-filter: blur(40px) saturate(220%);
+            -webkit-backdrop-filter: blur(40px) saturate(220%);
+            border-left: 1px solid var(--border-color);
+            background-color: var(--menu-bg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        html.lenis {
+            height: auto;
+        }
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        /* Minimal scrollbar configuration */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--sub-text);
+            border-radius: 0px;
+        }
+
+        /* Elastic spring cursor design */
+        .custom-cursor {
+            width: 6px;
+            height: 6px;
+            background-color: var(--text-color);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: difference;
+            transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease;
+        }
+
+        .custom-cursor.hovered {
+            width: 32px;
+            height: 32px;
+            background-color: rgba(128, 128, 128, 0.1);
+            border: 1px solid var(--text-color);
+            mix-blend-mode: normal;
+        }
+
+        /* Disable custom cursor follower completely on touch devices to ensure pure native interactions */
+        @media (hover: none) {
+            .custom-cursor {
+                display: none !important;
+            }
+        }
+
+        /* Bracket-bound links */
+        .bracket-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .bracket-link .bracket-left {
+            opacity: 0;
+            transform: translateX(4px);
+            transition: all 0.3s ease;
+        }
+        .bracket-link .bracket-right {
+            opacity: 0;
+            transform: translateX(-4px);
+            transition: all 0.3s ease;
+        }
+        .bracket-link:hover .bracket-left {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .bracket-link:hover .bracket-right {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Responsive variables for the mockup containers */
+        .mockup-wrap-bg {
+            background-color: var(--mockup-bg);
+            transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .mockup-item-card {
+            background-color: var(--mockup-card-bg);
+            border-color: var(--mockup-border);
+            color: var(--mockup-text);
+            transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.6s cubic-bezier(0.25, 1, 0.5, 1), color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .mockup-item-text {
+            color: var(--mockup-text);
+            transition: color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .mockup-item-subtext {
+            color: var(--mockup-subtext);
+            transition: color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Blinking typewriter cursor matching netlify style */
+        .typing-cursor {
+            display: inline-block;
+            width: 4px;
+            height: 0.9em;
+            background-color: var(--text-color);
+            margin-left: 6px;
+            animation: cursor-blink 0.8s infinite;
+            vertical-align: middle;
+            transition: background-color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        @keyframes cursor-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Refined Antonio Typography class styled specifically for high-impact display */
+        .typed-size {
+            font-size: 11vw;
+            line-height: 0.85;
+            text-transform: uppercase;
+            letter-spacing: -0.05em;
+            font-family: 'Antonio', sans-serif;
+            font-weight: 700;
+        }
+        @media (max-width: 1024px) {
+            .typed-size {
+                font-size: 12vw;
+                line-height: 0.9;
+            }
+        }
+
+        /* Absolute Master Glassmorphism Classes */
+        .glass-modal-container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
+            backdrop-filter: blur(50px) saturate(230%) !important;
+            -webkit-backdrop-filter: blur(50px) saturate(230%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 
+                0 30px 100px -20px rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .glass-sidebar {
+            background: rgba(255, 255, 255, 0.03) !important;
+            backdrop-filter: blur(30px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+
+        .light-theme .glass-modal-container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.45) 100%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
+            box-shadow: 
+                0 30px 100px -20px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .light-theme .glass-sidebar {
+            background: rgba(255, 255, 255, 0.5) !important;
+            border-right: 1px solid rgba(0, 0, 0, 0.05) !important;
+        }
+
+        /* Pulsing floating light refractors behind glass modal */
+        @keyframes orbit-glow {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .glow-refractor-1 {
+            animation: orbit-glow 12s infinite ease-in-out;
+        }
+        .glow-refractor-2 {
+            animation: orbit-glow 15s infinite ease-in-out alternate;
+        }
+    </style>
+</head>
+<body class="antialiased select-none dark-theme">
+
+    <!-- Tactile structural noise overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Active interactive custom follower -->
+    <div class="custom-cursor hidden md:block" id="cursor"></div>
+
+    <!-- Pristine, ultra-clean preloader container -->
+    <div id="preloader" class="fixed inset-0 bg-[#0d0d0f] z-[99999] flex flex-col justify-between p-8 md:p-16 text-white select-none overflow-hidden">
+        <!-- Three.js interactive background rendering container -->
+        <div id="preloader-canvas-container" class="absolute inset-0 z-0 opacity-90 pointer-events-none"></div>
+
+        <!-- Invisible spacers to center focus on the 3D typography sphere -->
+        <div></div>
+        <div></div>
+        
+        <!-- Elegant, tiny, low-contrast monospaced percentage counter at the bottom-right -->
+        <div class="relative z-10 flex justify-end items-end w-full">
+            <div class="text-xs font-mono-space tracking-[0.3em] text-neutral-500" id="load-percentage">
+                00%
+            </div>
+        </div>
+    </div>
+
+    <!-- Apple Frosted Glass Side Menu panel -->
+    <div id="blur-menu-panel" class="fixed top-0 right-0 h-screen w-full sm:w-[450px] z-[999] translate-x-full apple-glass flex flex-col justify-between p-8 md:p-16 transition-transform duration-500 ease-out">
+        <!-- Panel Header -->
+        <div class="flex justify-between items-center border-b theme-border pb-6">
+            <span class="text-[10px] font-mono-space uppercase tracking-[0.3em] theme-subtext">MENU INDEX</span>
+            <button id="close-menu-btn" class="text-xs font-mono-space uppercase tracking-widest hover:opacity-70 transition duration-300">
+                [ CLOSE ]
+            </button>
+        </div>
+
+        <!-- Dynamic Control Items -->
+        <div class="flex flex-col gap-12 my-auto py-12">
+            <!-- Theme Trigger Panel Option -->
+            <div class="flex flex-col gap-3">
+                <span class="text-[9px] font-mono-space uppercase tracking-[0.2em] theme-subtext">VISUAL MODE</span>
+                <button id="theme-toggle" class="text-left py-3 border-b theme-border hover:pl-2 transition-all duration-300 group">
+                    <span id="theme-text" class="text-lg font-mono-space uppercase tracking-widest font-bold">[ LIGHT MODE ]</span>
+                </button>
+            </div>
+
+            <!-- CV Download Panel Option -->
+            <div class="flex flex-col gap-3">
+                <span class="text-[9px] font-mono-space uppercase tracking-[0.2em] theme-subtext">RESUME & CREDENTIALS</span>
+                <button id="nav-cv-download" class="text-left py-3 border-b theme-border hover:pl-2 transition-all duration-300 group">
+                    <span class="text-lg font-mono-space uppercase tracking-widest font-bold">[ DOWNLOAD CV ]</span>
+                </button>
+            </div>
+            
+            <!-- Quick Link Routes -->
+            <div class="flex flex-col gap-3">
+                <span class="text-[9px] font-mono-space uppercase tracking-[0.2em] theme-subtext">NAVIGATION ROUTING</span>
+                <div class="flex flex-col gap-3 font-mono-space text-xs tracking-widest mt-1">
+                    <a href="#about-me" class="panel-nav-link hover:text-[var(--accent-color)] transition-colors py-1 flex justify-between">ABOUT ME <span>/ 01</span></a>
+                    <a href="#work-gallery" class="panel-nav-link hover:text-[var(--accent-color)] transition-colors py-1 flex justify-between">SELECTED WORKS <span>/ 02</span></a>
+                    <a href="#services-section" class="panel-nav-link hover:text-[var(--accent-color)] transition-colors py-1 flex justify-between">SERVICES <span>/ 03</span></a>
+                    <a href="#contact-section" class="panel-nav-link hover:text-[var(--accent-color)] transition-colors py-1 flex justify-between">CONNECT <span>/ 04</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Footer -->
+        <div class="border-t theme-border pt-6 flex justify-between items-center text-[9px] font-mono-space uppercase tracking-[0.2em] theme-subtext">
+            <span>© MS // 2026</span>
+            <span>AVAILABLE GLOBALLY</span>
+        </div>
+    </div>
+
+    <!-- Navigation bar matching reference exactly -->
+    <nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 md:px-16 py-6 mix-blend-difference text-white">
+        <!-- Stable Branding Logo matching Olha's stacked visual balance -->
+        <div class="text-lg font-antonio font-bold tracking-tighter leading-[0.85] cursor-pointer text-left uppercase">
+            MUHAMMED<br>SHASAL
+        </div>
+        
+        <!-- Elegant Middle Navigation Links styled with mono-space and brackets -->
+        <div class="space-x-6 text-[11px] font-mono-space uppercase tracking-widest hidden lg:flex items-center">
+            <a href="#about-me" class="bracket-link py-2 flex items-center">
+                <span class="bracket-left mr-1">[</span>ABOUT ME<span class="bracket-right ml-1">]</span>
+            </a>
+            <a href="#work-gallery" class="bracket-link py-2 flex items-center">
+                <span class="bracket-left mr-1">[</span>WORKS<span class="bracket-right ml-1">]</span>
+            </a>
+            <a href="#services-section" class="bracket-link py-2 flex items-center">
+                <span class="bracket-left mr-1">[</span>SERVICES<span class="bracket-right ml-1">]</span>
+            </a>
+            <a href="#contact-section" class="bracket-link py-2 flex items-center">
+                <span class="bracket-left mr-1">[</span>CONNECT<span class="bracket-right ml-1">]</span>
+            </a>
+        </div>
+
+        <!-- Custom Interactive Menu Drawer Trigger & CTA -->
+        <div class="flex items-center gap-6">
+            <a href="#contact-section" class="text-xs font-mono-space uppercase tracking-widest border-b border-white hover:opacity-75 transition-all duration-300 py-1">
+                CONTACT ME ↗
+            </a>
+            
+            <!-- Three-line Hamburger menu icon placed AFTER CONTACT ME -->
+            <button id="menu-toggle-btn" class="flex flex-col justify-center gap-[5px] w-6 h-5 cursor-pointer group" aria-label="Open Menu">
+                <span class="w-6 h-[1.5px] bg-white transition-all duration-300 group-hover:w-4"></span>
+                <span class="w-6 h-[1.5px] bg-white transition-all duration-300"></span>
+                <span class="w-6 h-[1.5px] bg-white transition-all duration-300 group-hover:w-5"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero section with pure editorial asymmetric layout -->
+    <header id="hero-section" class="min-h-screen flex flex-col justify-between px-6 md:px-16 pt-44 md:pt-48 pb-12 relative overflow-hidden">
+        <div></div>
+
+        <div class="max-w-7xl mx-auto w-full z-10 my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <!-- Complete Screen Grid Content: Pure Typography Presentation -->
+            <div class="lg:col-span-12 flex flex-col justify-center">
+                
+                <!-- Enhanced Typewriter Integration with block-enforced separation preventing overlap -->
+                <div class="mb-4">
+                    <h1 class="typed-size select-none flex flex-col">
+                        <!-- Custom designed premium warm-toned "Hey, I'm" subtitle -->
+                        <span class="theme-hey-color block mb-4 md:mb-6" style="font-weight: 600;">Hey, I'm</span>
+                        <!-- Typing target wrapper with custom min-height protection -->
+                        <span id="typedText" aria-live="polite" role="status" class="text-[var(--text-color)] min-h-[1.15em] inline-block transition-colors duration-300"></span>
+                    </h1>
+                </div>
+                
+                <div class="flex justify-between items-center w-full mt-6 border-t theme-border pt-4">
+                    <div class="text-[10px] font-mono-space uppercase tracking-[0.4em] theme-subtext">
+                        BASED IN INDIA
+                    </div>
+                    <div class="text-[10px] font-mono-space uppercase tracking-widest theme-subtext">
+                        AVAILABLE FOR GLOBAL WORK
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="w-full flex justify-between items-center text-[10px] font-mono-space uppercase tracking-widest theme-subtext theme-border border-t pt-6">
+            <div>© 2026 MUHAMMED SHASAL</div>
+            <div class="flex gap-6">
+                <a href="https://www.behance.net/shazzal" target="_blank" class="hover:opacity-70 transition">BEHANCE</a>
+                <a href="#" class="hover:opacity-70 transition">LINKEDIN</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Pristine Editorial About Me split grid -->
+    <section id="about-me" class="py-24 px-6 md:px-16 theme-border border-t relative">
+        <div class="max-w-7xl mx-auto">
+            <span class="text-xs font-mono-space uppercase tracking-[0.3em] theme-subtext">[ ABOUT ME ]</span>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-12 items-start border-t theme-border pt-12">
+                
+                <!-- Left Column: Brutalist disciplines layout inspired by Olha's style -->
+                <div class="lg:col-span-4 space-y-3 font-mono-space text-xs tracking-widest">
+                    <div class="text-sm font-bold border-b theme-border pb-4 mb-4 uppercase">EXPERTISE DIRECTION</div>
+                    <div class="hover:translate-x-2 transition-transform duration-300">/ ART DIRECTION</div>
+                    <div class="hover:translate-x-2 transition-transform duration-300">/ WEB DESIGN (UX/UI)</div>
+                    <div class="hover:translate-x-2 transition-transform duration-300">/ STRATEGIC DESIGN SYSTEMS</div>
+                    <div class="hover:translate-x-2 transition-transform duration-300">/ MOTION PROTOTYPING</div>
+                </div>
+                
+                <!-- Middle Column: Elegant philosophy description paragraph & Tactile Resume Download -->
+                <div class="lg:col-span-5 space-y-6 theme-subtext font-light text-base leading-relaxed">
+                    <p class="text-lg text-[var(--text-color)] font-medium leading-normal">
+                        I am Muhammed Shasal, a digital designer committed to crafting structural clarity and quiet authority. I believe that complex human behavior deserves simple, stunning interactive forms.
+                    </p>
+                    <p>
+                        By combining geometric grids, modern monospaced frameworks, and dynamic motion layers, I build interfaces that deliver both beauty and outstanding clarity. My screens strictly avoid unnecessary visual noise, choosing instead to focus on clean typographic logic.
+                    </p>
+                    
+                    <!-- Tactile Resume Download Action Button -->
+                    <div class="pt-6">
+                        <a href="assets/muhammed shasal tk_resume.pdf" class="inline-flex items-center gap-2 text-xs font-mono-space uppercase tracking-widest border-b-2 border-[var(--text-color)] pb-2 font-bold hover:opacity-75 transition-opacity" id="body-cv-download">
+                            DOWNLOAD MY RESUME <i class="fa-solid fa-arrow-down-long ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Minimalist statistical parameters -->
+                <div class="lg:col-span-3 space-y-8 lg:pl-6 border-t lg:border-t-0 lg:border-l theme-border pt-8 lg:pt-0">
+                    <div>
+                        <span class="text-5xl font-antonio font-bold block leading-none">24+</span>
+                        <span class="text-[9px] font-mono-space uppercase tracking-widest mt-1 block">Live Digital Products</span>
+                    </div>
+                    <div>
+                        <span class="text-5xl font-antonio font-bold block leading-none">100%</span>
+                        <span class="text-[9px] font-mono-space uppercase tracking-widest mt-1 block">Pixel Consistency</span>
+                    </div>
+                    <div>
+                        <span class="text-5xl font-antonio font-bold block leading-none">IND</span>
+                        <span class="text-[9px] font-mono-space uppercase tracking-widest mt-1 block">Global Capabilities</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Dynamic horizontal scrolling work gallery segment -->
+    <!-- CRITICAL BUG FIX: Added overflow-visible on mobile so all 7 stacked works can scroll natively inside their flex-col container -->
+    <section id="work-gallery" class="relative overflow-visible lg:overflow-hidden theme-border border-t">
+        <div class="absolute top-12 left-6 md:left-16 z-20 flex items-center gap-4">
+            <span class="text-xs font-mono-space uppercase tracking-widest font-bold theme-subtext">SELECTED WORKS [07]</span>
+        </div>
+
+        <!-- Horizontal dynamic slider track with size configured for exactly 7 screens -->
+        <div class="horizontal-scroll flex flex-col lg:flex-row h-auto lg:h-screen w-full lg:w-[700vw]">
+            
+            <!-- Slide 1: Tera Wellbeing -->
+            <div class="slide flex-shrink-0 w-full lg:w-screen min-h-screen lg:h-screen flex items-center justify-center px-6 md:px-24 py-24 lg:py-16 relative">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full max-w-7xl items-center">
+                    <div class="lg:col-span-5 z-10 flex flex-col justify-center h-full">
+                        <span class="text-[10px] font-mono-space tracking-widest theme-subtext mb-2">01 / CORPORATE WELLNESS PLATFORM</span>
+                        <h2 class="text-4xl lg:text-7xl font-antonio font-bold uppercase tracking-tighter mb-4 leading-none">
+                            TERA WELLBEING
+                        </h2>
+                        <p class="theme-subtext font-light text-sm leading-relaxed mb-6 max-w-sm">
+                            A high-performance digital ecosystem tailored for professional corporate wellness. Combining calm typographic balance, clean grids, and thoughtful health analytics.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://www.behance.net/shazzal" target="_blank" class="inline-flex items-center gap-2 border-b theme-border text-xs font-mono-space uppercase pb-1 tracking-wider hover:opacity-70 transition-all duration-300">
+                                BEHANCE ↗
+                            </a>
+                            <button class="open-modal-trigger inline-flex items-center gap-2 border-b theme-border text-xs font-mono-space uppercase pb-1 tracking-wider hover:opacity-70 transition-all duration-300 cursor-pointer" data-project-index="0">
+                                [ VIEW FULL DESIGN ]
+                            </button>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 flex justify-end">
+                        <div class="relative w-full aspect-[4/3] rounded-sm overflow-hidden border theme-border p-3 bg-neutral-500/5 cursor-pointer group/card open-modal-trigger" data-project-index="0">
+                            <!-- EDIT PORTFOLIO COVER IMAGE HERE -->
+                            <img src="assets/cover/teraclinic3.jpg" 
+                                 class="w-full h-full object-cover rounded-sm border theme-border transition-transform duration-700 group-hover/card:scale-[1.02]" 
+                                 alt="Tera Wellbeing Cover">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                                <span class="text-xs font-mono-space tracking-widest text-white border border-white/20 px-4 py-2 bg-black/75 rounded-sm uppercase">
+                                    [ CLICK TO VIEW WEB PAGE ]
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Tora -->
+            <div class="slide flex-shrink-0 w-full lg:w-screen min-h-screen lg:h-screen flex items-center justify-center px-6 md:px-24 py-24 lg:py-16 relative">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full max-w-7xl items-center">
+                    <div class="lg:col-span-5 z-10 flex flex-col justify-center h-full">
+                        <span class="text-[10px] font-mono-space tracking-widest theme-subtext mb-2">02 / PREMIUM INVESTMENT PLATFORM</span>
+                        <h2 class="text-4xl lg:text-7xl font-antonio font-bold uppercase tracking-tighter mb-4 leading-none">
+                            TORA REAL ESTATE
+                        </h2>
+                        <p class="theme-subtext font-light text-sm leading-relaxed mb-6 max-w-sm">
+                            Sophisticated investment interface designed for premium commercial real estate portfolios. High-contrast spatial metrics structured with pixel-perfect architecture.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://www.behance.net/shazzal" target="_blank" class="inline-flex items-center gap-2 border-b theme-border text-xs font-mono-space uppercase pb-1 tracking-wider hover:opacity-70 transition-all duration-300">
+                                BEHANCE ↗
+                            </a>
+                            <button class="open-modal-trigger inline-flex items-center gap-2 border-b theme-border text-xs font-mono-space uppercase pb-1 tracking-wider hover:opacity-70 transition-all duration-300 cursor-pointer" data-project-index="1">
+                                [ VIEW FULL DESIGN ]
+                            </button>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 flex justify-end">
+                        <div class="relative w-full aspect-[4/3] rounded-sm overflow-hidden border theme-border p-3 bg-neutral-500/5 cursor-pointer group/card open-modal-trigger" data-project-index="1">
+                            <!-- EDIT PORTFOLIO COVER IMAGE HERE -->
+                            <img src="assets/cover/tora 1.jpg" 
+                                 class="w-full h-full object-cover rounded-sm border theme-border transition-transform duration-700 group-hover/card:scale-[1.02]" 
+                                 alt="Tora Cover">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                                <span class="text-xs font-mono-space tracking-widest text-white border border-white/20 px-4 py-2 bg-black/75 rounded-sm uppercase">
+                                    [ CLICK TO VIEW WEB PAGE ]
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Tera Clinic -->
+            <div class="slide flex-shrink-0 w-full lg:w-screen min-h-screen lg:h-screen flex items-center justify-center px-6 md:px-24 py-24 lg:py-16 relative">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full max-w-7xl items-center">
+                    <div class="lg:col-span-5 z-10 flex flex-col justify-center h-full">
+                        <span class="text-[10px] font-mono-space tracking-widest theme-subtext mb-2">03 / PEDIATRIC MENTAL HEALTH</span>
+                        <h2 class="text-4xl lg:text-7xl font-antonio font-bold uppercase tracking-tighter mb-4 leading-none">
+                            TERA CLINIC
+                        </h2>
+                        <p class="theme-subtext font-light text-sm leading-relaxed mb-6 max-w-sm">
+                            A highly compassionate, beautifully structured pediatric clinic layout built around children's mental healthcare support structures and clinical guidance systems.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="" target="_blank" class="inline-flex items-center gap-2 border-b theme-border text-xs font-mono-space uppercase pb-1 tracking-wider hover:opacity-70 transition-all duration-300">
+                                BEHANCE ↗
+                            </a>
+                            <button class="open-modal-trigger inline-flex items-center gap-2 border-b theme-border text-xs font-mono-space uppercase pb-1 tracking-wider hover:opacity-70 transition-all duration-300 cursor-pointer" data-project-index="2">
+                                [ VIEW FULL DESIGN ]
+                            </button>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 flex justify-end">
+                        <div class="relative w-full aspect-[4/3] rounded-sm overflow-hidden border theme-border p-3 bg-neutral-500/5 cursor-pointer group/card open-modal-trigger" data-project-index="2">
+                            <!-- EDIT PORTFOLIO COVER IMAGE HERE -->
+                            <img src="assets/cover/teraclinic4.jpg" 
+                                 class="w-full h-full object-cover rounded-sm border theme-border transition-transform duration-700 group-hover/card:scale-[1.02]" 
+                                 alt="Tera Clinic Cover">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                                <span class="text-xs font-mono-space tracking-widest text-white border border-white/20 px-4 py-2 bg-black/75 rounded-sm uppercase">
+                                    [ CLICK TO VIEW WEB PAGE ]
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Furniture/Interior Design Concept -->
+            <div class="slide flex-shrink-0 w-full lg:w-screen min-h-screen lg:h-screen flex items-center justify-center px-6 md:px-24 py-24 lg:py-16 relative">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full max-w-7xl items-center">
+                    <div class="lg:col-span-5 z-10 flex flex-col justify-center h-full">
+                        <span class="text-[10px] font-mono-space tracking-widest theme-subtext mb-2">04 / FURNITURE & SPATIAL PLANNING</span>
+                        <h2 class="text-4xl lg:text-7xl font-antonio font-bold uppercase tracking-tighter mb-4 leading-none">
+                            MASTER TRADES
+                        </h2>
+                        <p class="theme-subtext font-light text-sm leading-relaxed mb-6 max-w-sm">
+                            "Comfort that builds better spaces." An editorial design concept created for bespoke high-end furniture items and minimal interior configuration modules.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://www.behance.net/shazzal" target="_blank" class="inline-flex items-center gap-2 border-b theme-border text-xs font-mono-space uppercase pb-1 tracking-wider hover:opacity-70 transition-all duration-300">
+                                BEHANCE ↗
+                            </a>
+                            <button class="open-modal-trigger inline-flex items-center gap-2 border-b theme-border text-xs font-mono-space uppercase pb-1 tracking-wider hover:opacity-70 transition-all duration-300 cursor-pointer" data-project-index="3">
+                                [ VIEW FULL DESIGN ]
+                            </button>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 flex justify-end">
+                        <div class="relative w-full aspect-[4/3] rounded-sm overflow-hidden border theme-border p-3 bg-neutral-500/5 cursor-pointer group/card open-modal-trigger" data-project-index="3">
+                            <!-- EDIT PORTFOLIO COVER IMAGE HERE -->
+                            <img src="assets/cover/master 4.jpg" 
+                                 class="w-full h-full object-cover rounded-sm border theme-border transition-transform duration-700 group-hover/card:scale-[1.02]" 
+                                 alt="Comfort Spaces Cover">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                                <span class="text-xs font-mono-space tracking-widest text-white border border-white/20 px-4 py-2 bg-black/75 rounded-sm uppercase">
+                                    [ CLICK TO VIEW WEB PAGE ]
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Hynite -->
+            <div class="slide flex-shrink-0 w-full lg:w-screen min-h-screen lg:h-screen flex items-center justify-center px-6 md:px-24 py-24 lg:py-16 relative">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full max-w-7xl items-center">
+                    <div class="lg:col-span-5 z-10 flex flex-col justify-center h-full">
+                        <span class="text-[10px] font-mono-space tracking-widest theme-subtext mb-2">05 / PREMIUM E-COMMERCE</span>
+                        <h2 class="text-4xl lg:text-7xl font-antonio font-bold uppercase tracking-tighter mb-4 leading-none">
+                            HYNITE 
+                        </h2>
+                        <p class="theme-subtext font-light text-sm leading-relaxed mb-6 max-w-sm">
+                            Premium mattress e-commerce landing page & product listing solution. Formulated with structured comparison tools and premium typography to showcase luxury sleep products.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://www.behance.net/shazzal" target="_blank" class="inline-flex items-center gap-2 border-b theme-border text-xs font-mono-space uppercase pb-1 tracking-wider hover:opacity-70 transition-all duration-300">
+                                BEHANCE ↗
+                            </a>
+                            <button class="open-modal-trigger inline-flex items-center gap-2 border-b theme-border text-xs font-mono-space uppercase pb-1 tracking-wider hover:opacity-70 transition-all duration-300 cursor-pointer" data-project-index="4">
+                                [ VIEW FULL DESIGN ]
+                            </button>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 flex justify-end">
+                        <div class="relative w-full aspect-[4/3] rounded-sm overflow-hidden border theme-border p-3 bg-neutral-500/5 cursor-pointer group/card open-modal-trigger" data-project-index="4">
+                            <!-- EDIT PORTFOLIO COVER IMAGE HERE -->
+                            <img src="assets/cover/hynite.jpg" 
+                                 class="w-full h-full object-cover rounded-sm border theme-border transition-transform duration-700 group-hover/card:scale-[1.02]" 
+                                 alt="Hynite Sleep Cover">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                                <span class="text-xs font-mono-space tracking-widest text-white border border-white/20 px-4 py-2 bg-black/75 rounded-sm uppercase">
+                                    [ CLICK TO VIEW WEB PAGE ]
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: Mobile E-commerce Landing Page -->
+            <div class="slide flex-shrink-0 w-full lg:w-screen min-h-screen lg:h-screen flex items-center justify-center px-6 md:px-24 py-24 lg:py-16 relative">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full max-w-7xl items-center">
+                    <div class="lg:col-span-5 z-10 flex flex-col justify-center h-full">
+                        <span class="text-[10px] font-mono-space tracking-widest theme-subtext mb-2">07 / MOBILE RETAIL CONCEPT</span>
+                        <h2 class="text-4xl lg:text-7xl font-antonio font-bold uppercase tracking-tighter mb-4 leading-none">
+                            I STORE
+                        </h2>
+                        <p class="theme-subtext font-light text-sm leading-relaxed mb-6 max-w-sm">
+                            Highly optimized mobile e-commerce portal and product launch interface for a premium tech store, emphasizing performance metrics, spatial grids, and effortless mobile checkouts.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://www.behance.net/shazzal" target="_blank" class="inline-flex items-center gap-2 border-b theme-border text-xs font-mono-space uppercase pb-1 tracking-wider hover:opacity-70 transition-all duration-300">
+                                BEHANCE ↗
+                            </a>
+                            <button class="open-modal-trigger inline-flex items-center gap-2 border-b theme-border text-xs font-mono-space uppercase pb-1 tracking-wider hover:opacity-70 transition-all duration-300 cursor-pointer" data-project-index="6">
+                                [ VIEW FULL DESIGN ]
+                            </button>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 flex justify-end">
+                        <div class="relative w-full aspect-[4/3] rounded-sm overflow-hidden border theme-border p-3 bg-neutral-500/5 cursor-pointer group/card open-modal-trigger" data-project-index="6">
+                            <!-- EDIT PORTFOLIO COVER IMAGE HERE -->
+                            <img src="assets/cover/istore2.jpg" 
+                                 class="w-full h-full object-cover rounded-sm border theme-border transition-transform duration-700 group-hover/card:scale-[1.02]" 
+                                 alt="Tech Retail Cover">
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                                <span class="text-xs font-mono-space tracking-widest text-white border border-white/20 px-4 py-2 bg-black/75 rounded-sm uppercase">
+                                    [ CLICK TO VIEW WEB PAGE ]
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Capabilities / Services Segment -->
+    <section id="services-section" class="py-24 px-6 md:px-16 theme-border border-t">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 items-end">
+                <div class="lg:col-span-8">
+                    <span class="text-xs font-mono-space uppercase tracking-[0.3em] theme-subtext">[ CAPABILITIES ]</span>
+                    <h2 class="text-4xl lg:text-7xl font-antonio font-bold uppercase tracking-tighter mt-2 leading-none">
+                        DESIGN SERVICES
+                    </h2>
+                </div>
+                <div class="lg:col-span-4 lg:text-right">
+                    <p class="theme-subtext text-xs font-mono-space uppercase tracking-widest max-w-xs lg:ml-auto">
+                        Delivering extreme clarity of form, aesthetic consistency, and high-performance layouts.
+                    </p>
+                </div>
+            </div>
+
+            <!-- List rows with elegant editorial style instead of noisy visual items -->
+            <div class="border-t theme-border">
+                
+                <!-- Service Row 1 -->
+                <div class="service-row border-b theme-border py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center cursor-pointer transition-all duration-300 hover:bg-neutral-500/[0.03] px-4">
+                    <div class="lg:col-span-2 text-[10px] font-mono-space theme-subtext">01 / BRAND IDENTITIES</div>
+                    <div class="lg:col-span-5">
+                        <h3 class="text-xl lg:text-2xl font-mono-space font-bold uppercase tracking-wider">AESTHETIC STRATEGY</h3>
+                    </div>
+                    <div class="lg:col-span-4 text-xs theme-subtext font-light leading-relaxed">
+                        Structuring custom typography setups, clean layout rules, and modern visual plans that build strong digital brand value.
+                    </div>
+                    <div class="lg:col-span-1 text-right opacity-40 hover:opacity-100 transition-all duration-300">
+                        <i class="fa-solid fa-arrow-right-long text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- Service Row 2 -->
+                <div class="service-row border-b theme-border py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center cursor-pointer transition-all duration-300 hover:bg-neutral-500/[0.03] px-4">
+                    <div class="lg:col-span-2 text-[10px] font-mono-space theme-subtext">02 / INTERFACES</div>
+                    <div class="lg:col-span-5">
+                        <h3 class="text-xl lg:text-2xl font-mono-space font-bold uppercase tracking-wider">UI/UX SYSTEMS</h3>
+                    </div>
+                    <div class="lg:col-span-4 text-xs theme-subtext font-light leading-relaxed">
+                        Prototyping responsive web layouts organized with geometric structures to give your users the cleanest interactive experience.
+                    </div>
+                    <div class="lg:col-span-1 text-right opacity-40 hover:opacity-100 transition-all duration-300">
+                        <i class="fa-solid fa-arrow-right-long text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- Service Row 3 -->
+                <div class="service-row border-b theme-border py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center cursor-pointer transition-all duration-300 hover:bg-neutral-500/[0.03] px-4">
+                    <div class="lg:col-span-2 text-[10px] font-mono-space theme-subtext">03 / INTERACTION</div>
+                    <div class="lg:col-span-5">
+                        <h3 class="text-xl lg:text-2xl font-mono-space font-bold uppercase tracking-wider">DIGITAL EXPERIENCES</h3>
+                    </div>
+                    <div class="lg:col-span-4 text-xs theme-subtext font-light leading-relaxed">
+                        Developing smooth kinetic animations, structural transitions, and elegant visual details that keep audiences engaged.
+                    </div>
+                    <div class="lg:col-span-1 text-right opacity-40 hover:opacity-100 transition-all duration-300">
+                        <i class="fa-solid fa-arrow-right-long text-sm"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Form strictly styled like reference image -->
+    <section id="contact-section" class="py-24 px-6 md:px-16 theme-border border-t relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <div class="lg:col-span-5 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-mono-space uppercase tracking-widest theme-subtext">[ CONNECT ]</span>
+                        <h2 class="text-4xl lg:text-7xl font-antonio font-bold uppercase tracking-tighter mt-4 leading-[0.85]">
+                            BUILDING THE<br>NEXT MODERN<br>INTERFACE.
+                        </h2>
+                    </div>
+                    <div class="mt-12 space-y-6">
+                        <div>
+                            <p class="text-[9px] font-mono-space uppercase theme-subtext tracking-[0.2em] mb-1">Direct Email</p>
+                            <a href="mailto:shazalshaz770@gmail.com" class="text-base lg:text-xl font-mono-space font-bold hover:underline">shazalshaz770@gmail.com</a>
+                        </div>
+                        <div>
+                            <p class="text-[9px] font-mono-space uppercase theme-subtext tracking-[0.2em] mb-1">Direct Contact</p>
+                            <a href="tel:+918281949610" class="text-base lg:text-xl font-mono-space font-bold hover:underline">+91 8281949610</a>
+                        </div>
+                        <div>
+                            <p class="text-[9px] font-mono-space uppercase theme-subtext tracking-[0.2em] mb-2">Design Networks</p>
+                            <div class="flex gap-4">
+                                <a href="https://www.behance.net/shazzal" target="_blank" class="px-4 py-1.5 text-xs font-mono-space border theme-border rounded-none theme-bg-pill hover:bg-neutral-900 hover:text-white transition-all duration-300">BEHANCE</a>
+                                <a href="#" class="px-4 py-1.5 text-xs font-mono-space border theme-border rounded-none theme-bg-pill hover:bg-neutral-900 hover:text-white transition-all duration-300">LINKEDIN</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 pt-6 lg:pt-0">
+                    <form id="contact-form" class="space-y-10">
+                        <div>
+                            <label class="block text-[10px] font-mono-space uppercase tracking-[0.2em] theme-subtext mb-1">YOUR NAME*</label>
+                            <input type="text" required class="w-full bg-transparent border-b theme-border focus:border-neutral-500 py-2 outline-none transition duration-300 text-sm font-light uppercase tracking-wider" placeholder="ENTER YOUR FULL NAME">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-mono-space uppercase tracking-[0.2em] theme-subtext mb-1">PHONE*</label>
+                            <input type="tel" required class="w-full bg-transparent border-b theme-border focus:border-neutral-500 py-2 outline-none transition duration-300 text-sm font-light uppercase tracking-wider" placeholder="ENTER PHONE NUMBER">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-mono-space uppercase tracking-[0.2em] theme-subtext mb-1">YOUR EMAIL*</label>
+                            <input type="email" required class="w-full bg-transparent border-b theme-border focus:border-neutral-500 py-2 outline-none transition duration-300 text-sm font-light uppercase tracking-wider" placeholder="ENTER MAIL ADDRESS">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-mono-space uppercase tracking-[0.2em] theme-subtext mb-1">HOW CAN I HELP YOU</label>
+                            <textarea rows="2" class="w-full bg-transparent border-b theme-border focus:border-neutral-500 py-2 outline-none transition duration-300 text-sm font-light uppercase tracking-wider resize-none" placeholder="DISCUSS YOUR PROJECT BRIEF AND TIMELINE"></textarea>
+                        </div>
+                        
+                        <!-- Tactile Budget Selector matching fresher expectations perfectly -->
+                        <div>
+                            <label class="block text-[10px] font-mono-space uppercase tracking-[0.2em] theme-subtext mb-3">PROJECT BUDGET (USD)</label>
+                            <div class="flex flex-wrap gap-6 mt-2">
+                                <button type="button" class="budget-option text-sm font-mono-space font-bold uppercase transition-all duration-300 border-b-2 border-transparent hover:border-[var(--text-color)] text-neutral-400">UNDER 500</button>
+                                <button type="button" class="budget-option text-sm font-mono-space font-bold uppercase transition-all duration-300 border-b-2 border-[var(--text-color)] text-[var(--text-color)]">500-1K</button>
+                                <button type="button" class="budget-option text-sm font-mono-space font-bold uppercase transition-all duration-300 border-b-2 border-transparent hover:border-[var(--text-color)] text-neutral-400">1K-2.5K</button>
+                                <button type="button" class="budget-option text-sm font-mono-space font-bold uppercase transition-all duration-300 border-b-2 border-transparent hover:border-[var(--text-color)] text-neutral-400">MORE</button>
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <button type="submit" class="group flex items-center gap-2 text-sm font-mono-space uppercase tracking-widest py-2 border-b-2 border-[var(--text-color)] font-bold transition-all duration-300 hover:opacity-75">
+                                DISCUSS THE PROJECT <span class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">↗</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer alignment -->
+    <footer class="py-12 px-6 md:px-16 theme-border border-t text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-6">
+        <p class="text-[10px] theme-subtext font-mono-space">© 2026 MUHAMMED SHASAL. ALL RIGHTS RESERVED.</p>
+        <div class="flex gap-8 text-[10px] font-mono-space uppercase tracking-widest theme-subtext">
+            <a href="https://www.behance.net/shazzal" target="_blank" class="hover:opacity-70 transition">BEHANCE</a>
+            <a href="#" class="hover:opacity-70 transition">LINKEDIN</a>
+        </div>
+    </footer>
+
+    <!-- Apple-Style Ultra-Premium Immersive Full Webpage Modal Viewer -->
+    <div id="project-modal" class="fixed inset-0 z-[10000] hidden bg-[#0d0d0f]/40 backdrop-blur-2xl flex justify-center items-center overflow-hidden p-0 md:p-8 transition-all duration-500 opacity-0 select-none">
+        
+        <!-- Ambient Glass-Glow Background Blurs (Shines beautiful color shapes through the frosted glass container) -->
+        <div class="glow-refractor-1 absolute w-[35vw] h-[35vw] max-w-[500px] rounded-full bg-blue-500/10 dark:bg-blue-500/15 blur-[100px] top-12 left-12 pointer-events-none z-0"></div>
+        <div class="glow-refractor-2 absolute w-[30vw] h-[30vw] max-w-[400px] rounded-full bg-purple-500/10 dark:bg-purple-500/15 blur-[90px] bottom-12 right-12 pointer-events-none z-0"></div>
+
+        <!-- Main Immersive Canvas Container styled with true premium Apple-glass backing -->
+        <div class="glass-modal-container relative w-full h-full max-w-7xl rounded-none md:rounded-xl overflow-hidden flex flex-col md:grid md:grid-cols-12 scale-95 transition-all duration-500 z-10" id="modal-container">
+            
+            <!-- Sleek Top-Right Circular Close button floating inside -->
+            <button id="close-modal-btn" class="absolute top-6 right-6 z-50 w-10 h-10 rounded-full bg-[#18181b]/90 border border-white/15 hover:border-white/35 flex items-center justify-center text-white text-xs font-mono-space transition-all duration-300 cursor-pointer shadow-lg hover:scale-105">
+                ✕
+            </button>
+
+            <!-- LEFT SIDE COLUMN: Sticky Case Study Metadata (5 cols on desktop) styled with Frosted finish (Lenis-Prevent enabled) -->
+            <div class="glass-sidebar col-span-12 md:col-span-5 p-6 md:p-12 flex flex-col justify-between h-auto md:h-full relative overflow-y-auto" data-lenis-prevent>
+                
+                <div class="space-y-6">
+                    <span class="text-[9px] font-mono-space uppercase tracking-[0.3em] text-neutral-400 block">[ CASE STUDY ]</span>
+                    
+                    <h4 id="modal-project-title" class="text-3xl md:text-5xl font-antonio font-bold text-[var(--text-color)] uppercase tracking-tighter leading-none mt-2">
+                        PROJECT TITLE
+                    </h4>
+                    
+                    <p id="modal-project-category" class="text-xs font-mono-space theme-subtext uppercase tracking-widest">
+                        CATEGORY
+                    </p>
+
+                    <!-- Exquisite metadata grid detailing design and development scopes -->
+                    <div class="border-t border-b theme-border py-6 my-6 space-y-4 font-mono-space text-xs">
+                        <div class="flex justify-between">
+                            <span class="text-neutral-500">ROLE</span>
+                            <span class="text-[var(--text-color)] text-right font-medium">DESIGN & DEVELOPMENT</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-neutral-500">CLIENT</span>
+                            <span class="text-[var(--text-color)] text-right font-medium">GLOBAL PARTNER</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-neutral-500">DURATION</span>
+                            <span class="text-[var(--text-color)] text-right font-medium">1 MONTH</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-neutral-500">YEAR</span>
+                            <span class="text-[var(--text-color)] text-right font-medium">2026</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <span class="text-[9px] font-mono-space uppercase tracking-[0.2em] text-neutral-500 block">BRIEF DIRECTION</span>
+                        <p class="text-xs text-neutral-400 leading-relaxed font-light">
+                            Structuring bespoke, pixel-perfect visual languages, geometric layouts, and dynamic motion systems tailored specifically to convert high-fidelity concepts into world-class digital realities.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pt-8 md:pt-0">
+                    <a href="https://www.behance.net/shazzal" target="_blank" class="inline-flex w-full justify-center items-center gap-2 text-xs font-mono-space uppercase tracking-widest py-3 border border-white/15 bg-white/5 text-white hover:bg-white hover:text-black font-bold transition-all duration-300 rounded-sm">
+                        EXPLORE ON BEHANCE <i class="fa-solid fa-arrow-right-long text-xs ml-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE COLUMN: Scrolling browser showcase window (7 cols on desktop) -->
+            <div class="col-span-12 md:col-span-7 h-[45vh] md:h-full p-4 md:p-8 flex flex-col bg-[#060608]/50 dark:bg-[#060608]/80 relative backdrop-blur-md">
+                
+                <!-- Browser Chrome container enclosing the preview content -->
+                <div class="w-full flex-grow border border-white/10 rounded-t-lg overflow-hidden flex flex-col bg-[#111115]">
+                    
+                    <!-- Webpage Mockup Browser Header Bar -->
+                    <div class="w-full bg-[#131316] h-8 rounded-t-lg flex items-center justify-between px-4 border-b border-white/5 select-none shrink-0 relative">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-red-500/40"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/40"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-green-500/40"></span>
+                        </div>
+                        
+                        <!-- Mini search address bar matching safari aesthetic -->
+                        <div class="w-1/2 bg-black/30 h-5 rounded-md flex items-center justify-center text-[9px] font-mono-space text-neutral-500 tracking-wide">
+                            muhammedshasal.design
+                        </div>
+                        
+                        <div class="w-10"></div>
+
+                        <!-- Progress Bar tracking screen scroll coordinates -->
+                        <div class="absolute bottom-0 left-0 h-[1.5px] bg-white transition-all duration-300" id="modal-scroll-progress" style="width: 0%;"></div>
+                    </div>
+
+                    <!-- Inner Scrollable Webpage Image Showcase frame (CRITICAL FIX: data-lenis-prevent and flexbox bounds enabled) -->
+                    <div class="w-full flex-grow h-0 overflow-y-auto bg-[#0c0c0f] p-2 md:p-6" id="modal-mockup-scrollable-frame" data-lenis-prevent>
+                        <div class="text-center text-[9px] font-mono-space text-neutral-600 uppercase tracking-widest mb-6">
+                            SCROLL DOWN TO VIEW FULL DESIGN ↓
+                        </div>
+                        
+                        <!-- Target webpage long design screenshot image -->
+                        <img id="modal-project-full-img" src="" alt="Full Webpage Showcase Preview" class="w-full h-auto object-contain max-w-full block shadow-2xl rounded-sm">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- External Packages for Animation Core and 3D Rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const lenis = new Lenis({
+            duration: 1.1,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
+            smoothWheel: true,
+            wheelMultiplier: 1.1,
+            touchMultiplier: 2.0,
+            infinite: false,
         });
-      });
-    });
-  </script>
+
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+
+        let scene, camera, renderer, kineticSphere;
+        let targetX = 0, targetY = 0;
+        let currentCamX = 0, currentCamY = 0;
+        const clock = new THREE.Clock();
+
+        function createTextTexture(textString) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024; // Ultra-high resolution for perfectly crisp vector typography
+            canvas.height = 256;
+            const ctx = canvas.getContext('2d');
+            
+            // Clean stark black texture base matching preloader theme
+            ctx.fillStyle = '#0d0d0f';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Contrast white typography map
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '700 36px "Space Mono", monospace';
+            ctx.textBaseline = 'middle';
+            
+            // Draw text repeated cleanly across the canvas boundary
+            const fullText = `${textString}  •  ${textString}  •  `;
+            ctx.fillText(fullText, 30, canvas.height / 2);
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set(1, 1);
+            return texture;
+        }
+
+        function initPreloader3D() {
+            const container = document.getElementById('preloader-canvas-container');
+            if (!container) return;
+
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+            camera.position.z = 6;
+
+            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            // Generates pristine, crisp kinetic texture for our single signature orb
+            const texture = createTextTexture('MUHAMMED SHASAL // CREATIVE UI/UX DESIGNER // IND');
+
+            // Refractive material representing luxurious distorted glass
+            const material = new THREE.MeshPhysicalMaterial({
+                map: texture,
+                transparent: true,
+                opacity: 0.85,
+                roughness: 0.1,
+                metalness: 0.1,
+                transmission: 0.7,
+                ior: 1.45,
+                clearcoat: 1.0,
+                clearcoatRoughness: 0.1,
+                side: THREE.DoubleSide
+            });
+
+            // Single massive high-detail sphere geometry centered perfectly
+            const geometry = new THREE.SphereGeometry(1.6, 128, 128);
+            kineticSphere = new THREE.Mesh(geometry, material);
+
+            // Initial positioning underneath the viewport
+            kineticSphere.position.set(0, -5, 0);
+            scene.add(kineticSphere);
+
+            // Professional, crisp lighting profiles
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+
+            const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.2);
+            dirLight1.position.set(5, 5, 5);
+            scene.add(dirLight1);
+
+            const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
+            dirLight2.position.set(-5, -5, -5);
+            scene.add(dirLight2);
+
+            // Rises the majestic single orb cleanly into center coordinates
+            gsap.to(kineticSphere.position, { y: 0, duration: 2.2, ease: "power3.out" });
+
+            window.addEventListener('resize', onPreloaderResize);
+            animatePreloader();
+        }
+
+        function onPreloaderResize() {
+            const container = document.getElementById('preloader-canvas-container');
+            if (!container) return;
+            
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+
+            // Responsive scale correction for mobile touchscreens: Prevent clipping
+            if (kineticSphere) {
+                const screenAspect = container.clientWidth / container.clientHeight;
+                if (screenAspect < 1) {
+                    kineticSphere.scale.set(0.75, 0.75, 0.75); // Safe scale for narrow device displays
+                } else {
+                    kineticSphere.scale.set(1.0, 1.0, 1.0); // Full size for widescreen displays
+                }
+            }
+        }
+
+        function animatePreloader() {
+            requestAnimationFrame(animatePreloader);
+
+            if (kineticSphere) {
+                // Continuous kinetic spin across the text horizon
+                kineticSphere.rotation.y += 0.006;
+                kineticSphere.rotation.x += 0.001;
+
+                // Subtle organic floating wave pattern
+                const elapsed = clock.getElapsedTime();
+                kineticSphere.position.y += Math.sin(elapsed * 1.0) * 0.0012;
+            }
+
+            // Butter-smooth cursor coordination orbit damping
+            currentCamX += (targetX * 1.5 - currentCamX) * 0.05;
+            currentCamY += (-targetY * 1.0 - currentCamY) * 0.05;
+            camera.position.x = currentCamX;
+            camera.position.y = currentCamY;
+            camera.lookAt(0, 0, 0);
+
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            targetX = (e.clientX / window.innerWidth - 0.5) * 2;
+            targetY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initPreloader3D();
+            onPreloaderResize(); // Trigger instant aspect safety check on initiation
+        });
+
+        // Preloader Count Sequence
+        let count = { val: 0 };
+        gsap.to(count, {
+            val: 100,
+            duration: 2.8,
+            ease: "power2.out",
+            onUpdate: () => {
+                document.getElementById('load-percentage').innerText = Math.floor(count.val).toString().padStart(2, '0') + '%';
+            },
+            onComplete: () => {
+                // Slide kinetic sphere away gracefully down the grid structure
+                gsap.to(kineticSphere.position, { y: -6, duration: 1.5, ease: "power3.inOut" });
+                gsap.to(kineticSphere.scale, { x: 0, y: 0, z: 0, duration: 1.5, ease: "power3.inOut" });
+
+                gsap.to('#preloader', {
+                    yPercent: -100,
+                    duration: 1.2,
+                    ease: "power4.inOut",
+                    onComplete: () => {
+                        document.getElementById('preloader').style.display = 'none';
+                        animateHero();
+                    }
+                });
+            }
+        });
+
+        function animateHero() {
+            // Reveal header layout cleanly
+            gsap.fromTo('#hero-section', 
+                { opacity: 0 },
+                { opacity: 1, duration: 1.2, ease: "power4.out" }
+            );
+
+            // Execute the precise Typewriter implementation with block layout support
+            initTypewriterEngine();
+        }
+
+        function initTypewriterEngine() {
+            const typedText = document.getElementById('typedText');
+            if (!typedText) return;
+
+            const cursor = document.createElement('span');
+            cursor.className = 'typing-cursor';
+            
+            const texts = [
+                'Muhammed Shasal',
+                'UI/UX Designer', 
+                'Web Developer'
+            ];
+            
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let isWaiting = false;
+            
+            function typeWriter() {
+                const currentText = texts[textIndex];
+                
+                if (isDeleting) {
+                    // Delete text
+                    typedText.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                    
+                    if (charIndex === 0) {
+                        isDeleting = false;
+                        textIndex = (textIndex + 1) % texts.length;
+                        isWaiting = true;
+                        setTimeout(typeWriter, 500);
+                        return;
+                    }
+                } else if (isWaiting) {
+                    // Just finished deleting, start typing new text
+                    isWaiting = false;
+                    typedText.textContent = '';
+                    charIndex = 0;
+                } else {
+                    // Type text
+                    typedText.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                    
+                    if (charIndex === currentText.length) {
+                        // Finished typing, wait then start deleting
+                        isWaiting = true;
+                        setTimeout(() => {
+                            isDeleting = true;
+                            isWaiting = false;
+                            typeWriter();
+                        }, 2000);
+                        return;
+                    }
+                }
+                
+                // Add cursor
+                typedText.appendChild(cursor);
+                
+                // Set typing speed
+                const typeSpeed = isDeleting ? 50 : 100;
+                const randomVariation = Math.random() * 50;
+                
+                setTimeout(typeWriter, typeSpeed + randomVariation);
+            }
+            
+            // Start the typewriter effect
+            setTimeout(typeWriter, 1000);
+
+            // Accessibility - Enter triggers click
+            document.querySelectorAll('a, button').forEach(el => {
+                el.addEventListener('keydown', (e) => { 
+                    if (e.key === 'Enter') el.click(); 
+                });
+            });
+        }
+
+        function handleResumeDownload(e) {
+            e.preventDefault();
+            // Tactile feedback inside the button/link text
+            const originalText = e.currentTarget.innerText;
+            e.currentTarget.innerText = "[ COMPILING CV... ]";
+            
+            setTimeout(() => {
+                e.currentTarget.innerText = "[ CV DOWNLOADED! ]";
+                
+                // Generating a dummy file download trigger for CV
+                const link = document.createElement('a');
+                link.href = 'assets/muhammed shasal tk_resume.pdf'; 
+                link.download = 'assets/muhammed shasal tk_resume.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                setTimeout(() => {
+                    e.currentTarget.innerText = originalText;
+                }, 2000);
+            }, 1200);
+        }
+
+        document.getElementById('nav-cv-download').addEventListener('click', handleResumeDownload);
+        document.getElementById('body-cv-download').addEventListener('click', handleResumeDownload);
+
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const blurMenuPanel = document.getElementById('blur-menu-panel');
+        const panelNavLinks = document.querySelectorAll('.panel-nav-link');
+
+        function openBlurPanel() {
+            blurMenuPanel.classList.remove('translate-x-full');
+            blurMenuPanel.classList.add('translate-x-0');
+        }
+
+        function closeBlurPanel() {
+            blurMenuPanel.classList.remove('translate-x-0');
+            blurMenuPanel.classList.add('translate-x-full');
+        }
+
+        menuToggleBtn.addEventListener('click', openBlurPanel);
+        closeMenuBtn.addEventListener('click', closeBlurPanel);
+
+        // Auto close panel on quick menu click
+        panelNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                setTimeout(closeBlurPanel, 300);
+            });
+        });
+
+        // Close on click outside panel
+        document.addEventListener('click', (e) => {
+            if (!blurMenuPanel.contains(e.target) && !menuToggleBtn.contains(e.target) && !blurMenuPanel.classList.contains('translate-x-full')) {
+                closeBlurPanel();
+            }
+        });
+
+        const cursor = document.getElementById('cursor');
+        let mouseX = 0, mouseY = 0;
+        let currentX = 0, currentY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        gsap.ticker.add(() => {
+            currentX += (mouseX - currentX) * 0.15;
+            currentY += (mouseY - currentY) * 0.15;
+            gsap.set(cursor, { x: currentX, y: currentY });
+        });
+
+        // Interactive cursor hover actions
+        const interactiveElements = document.querySelectorAll('a, button, [role="button"], .service-row, .slide border');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hovered');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hovered');
+            });
+        });
+
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        // True "Separately Designed Mobile Layout": MatchMedia ensures horizontal pinning occurs ONLY on widescreen desktops
+        let mm = gsap.matchMedia();
+
+        mm.add("(min-width: 1024px)", () => {
+            // WIDESCREEN DESKTOP ENVIRONMENT: Lock screen and animate horizontal slides
+            let scrollTween = gsap.to(".horizontal-scroll", {
+                x: () => -(window.innerWidth * (totalSlides - 1)),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#work-gallery",
+                    pin: true,
+                    scrub: 1.0,
+                    end: () => "+=" + (window.innerWidth * (totalSlides - 1)),
+                    invalidateOnRefresh: true,
+                    anticipatePin: 1
+                }
+            });
+
+            // Cleanup animation when leaving desktop sizing
+            return () => {
+                scrollTween.scrollTrigger.kill();
+                gsap.set(".horizontal-scroll", { clearProps: "all" });
+            };
+        });
+
+        // Anchor navigation to scroll smooth with Lenis
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    lenis.scrollTo(target);
+                }
+            });
+        });
+
+        const budgetOptions = document.querySelectorAll('.budget-option');
+        budgetOptions.forEach(opt => {
+            opt.addEventListener('click', () => {
+                budgetOptions.forEach(o => {
+                    o.classList.remove('border-[var(--text-color)]', 'text-[var(--text-color)]');
+                    o.classList.add('border-transparent', 'text-neutral-400');
+                });
+                opt.classList.remove('border-transparent', 'text-neutral-400');
+                opt.classList.add('border-[var(--text-color)]', 'text-[var(--text-color)]');
+            });
+        });
+
+        // Hidden theme toggle logic (Starts in Dark Mode by default)
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeText = document.getElementById('theme-text');
+
+        themeToggle.addEventListener('click', () => {
+            const body = document.body;
+            body.classList.toggle('dark-theme');
+            
+            const isDark = body.classList.contains('dark-theme');
+            
+            // Transform toggle text softly
+            if (isDark) {
+                themeText.innerText = "[ LIGHT MODE ]";
+            } else {
+                themeText.innerText = "[ DARK MODE ]";
+            }
+
+            // Immediately update scroll targets
+            ScrollTrigger.refresh();
+        });
+
+        // Form handler
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.innerText = "DISCUSSING YOUR BRIEF...";
+            setTimeout(() => {
+                submitBtn.innerText = "PROJECT BRIEF RECEIVED ↗";
+                e.target.reset();
+            }, 2000);
+        });
+
+        // Explicit 7-Project Database mapping Cover images to Full Webpage design URLs
+        const projectsDb = [
+            {
+                title: "Tera Wellbeing",
+                category: "Corporate Wellness Platform",
+                fullImage: "assets/present/tera wellbeing.jpg"
+            },
+            {
+                title: "Tora Real Estate",
+                category: "Premium Real Estate Platform",
+                fullImage: "assets/present/tora.jpg"
+            },
+            {
+                title: "Tera Clinic",
+                category: "Pediatric Mental Health Platform",
+                fullImage: "assets/present/tera clinic.png"
+            },
+            {
+                title: "Comfort Spaces",
+                category: "Furniture & Spatial Planning",
+                fullImage: "assets/present/master trade.jpg"
+            },
+            {
+                title: "Hynite Sleep",
+                category: "Premium E-commerce Portal",
+                fullImage: "assets/present/hynite.jpg"
+            },
+            {
+                title: "Master Trade",
+                category: "Interior & Furniture Trade Platform",
+                fullImage: "assets/present/tera wellbeing.jpg"
+            },
+            {
+                title: "Premium Tech Retail",
+                category: "Mobile Retail Concept Store",
+                fullImage: "assets/present/istore.jpg"
+            }
+        ];
+
+        const projectModal = document.getElementById('project-modal');
+        const modalContainer = document.getElementById('modal-container');
+        const modalTitle = document.getElementById('modal-project-title');
+        const modalCategory = document.getElementById('modal-project-category');
+        const modalFullImg = document.getElementById('modal-project-full-img');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const scrollableFrame = document.getElementById('modal-mockup-scrollable-frame');
+        const progressIndicator = document.getElementById('modal-scroll-progress');
+
+        function openProjectModal(index) {
+            const data = projectsDb[index];
+            if (!data) return;
+
+            modalTitle.innerText = data.title;
+            modalCategory.innerText = data.category;
+            
+            // Set dynamic loading status for image to look super smooth
+            modalFullImg.src = "";
+            modalFullImg.src = data.fullImage;
+
+            // Reset mockup scroll coordinates
+            scrollableFrame.scrollTop = 0;
+            progressIndicator.style.width = "0%";
+
+            // Trigger smooth display transition
+            projectModal.classList.remove('hidden');
+            // Force browser repaint
+            void projectModal.offsetWidth;
+            
+            projectModal.classList.remove('opacity-0');
+            modalContainer.classList.remove('scale-95');
+            
+            // Temporarily pause background scroll with Lenis
+            lenis.stop();
+        }
+
+        // Setup live scroll percentage tracking inside the mockup frame
+        scrollableFrame.addEventListener('scroll', () => {
+            const maxScroll = scrollableFrame.scrollHeight - scrollableFrame.clientHeight;
+            if (maxScroll <= 0) return;
+            
+            const percentage = (scrollableFrame.scrollTop / maxScroll) * 100;
+            progressIndicator.style.width = `${percentage}%`;
+        });
+
+        function closeProjectModal() {
+            projectModal.classList.add('opacity-0');
+            modalContainer.classList.add('scale-95');
+            
+            setTimeout(() => {
+                projectModal.classList.add('hidden');
+                // Resume background scroll smoothly
+                lenis.start();
+            }, 300);
+        }
+
+        // Attach triggers to all visual cards and buttons inside slides
+        document.querySelectorAll('.open-modal-trigger').forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const index = parseInt(trigger.getAttribute('data-project-index'), 10);
+                openProjectModal(index);
+            });
+        });
+
+        closeModalBtn.addEventListener('click', closeProjectModal);
+        
+        // Close on background blur click
+        projectModal.addEventListener('click', (e) => {
+            if (e.target === projectModal) {
+                closeProjectModal();
+            }
+        });
+
+        // Close modal on Escape press
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !projectModal.classList.contains('hidden')) {
+                closeProjectModal();
+            }
+        });
+    </script>
 </body>
 </html>
