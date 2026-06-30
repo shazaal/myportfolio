@@ -1438,7 +1438,7 @@
             submitBtn.disabled = true;
             
             const formData = new FormData(form);
-            fetch("/", {
+            fetch(window.location.pathname, {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: new URLSearchParams(formData).toString()
