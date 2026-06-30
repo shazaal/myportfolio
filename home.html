@@ -354,7 +354,7 @@
 
         <!-- Panel Footer -->
         <div class="border-t theme-border pt-6 flex justify-between items-center text-[9px] font-mono-space uppercase tracking-[0.2em] theme-subtext">
-            <span>© MS // 2026</span>
+            <span></span>
             <span>AVAILABLE GLOBALLY</span>
         </div>
     </div>
@@ -429,7 +429,7 @@
         </div>
 
         <div class="w-full flex justify-between items-center text-[10px] font-mono-space uppercase tracking-widest theme-subtext theme-border border-t pt-6">
-            <div>© 2026 MUHAMMED SHASAL</div>
+            <div></div>
             <div class="flex gap-6">
                 <a href="https://www.behance.net/shazzal" target="_blank" class="hover:opacity-70 transition">BEHANCE</a>
                 <a href="#" class="hover:opacity-70 transition">LINKEDIN</a>
@@ -464,7 +464,7 @@
                     
                     <!-- Tactile Resume Download Action Button -->
                     <div class="pt-6">
-                        <a href="assets/muhammed shasal tk_resume.pdf" class="inline-flex items-center gap-2 text-xs font-mono-space uppercase tracking-widest border-b-2 border-[var(--text-color)] pb-2 font-bold hover:opacity-75 transition-opacity" id="body-cv-download">
+                        <a href="assets/muhammed_shasal_tk_resume.pdf" class="inline-flex items-center gap-2 text-xs font-mono-space uppercase tracking-widest border-b-2 border-[var(--text-color)] pb-2 font-bold hover:opacity-75 transition-opacity" id="body-cv-download">
                             DOWNLOAD MY RESUME <i class="fa-solid fa-arrow-down-long ml-1"></i>
                         </a>
                     </div>
@@ -817,27 +817,29 @@
                 </div>
 
                 <div class="lg:col-span-7 pt-6 lg:pt-0">
-                    <form id="contact-form" class="space-y-10">
+                    <form id="contact-form" name="contact" method="POST" data-netlify="true" class="space-y-10">
+                        <input type="hidden" name="form-name" value="contact">
                         <div>
                             <label class="block text-[10px] font-mono-space uppercase tracking-[0.2em] theme-subtext mb-1">YOUR NAME*</label>
-                            <input type="text" required class="w-full bg-transparent border-b theme-border focus:border-neutral-500 py-2 outline-none transition duration-300 text-sm font-light uppercase tracking-wider" placeholder="ENTER YOUR FULL NAME">
+                            <input type="text" name="name" required class="w-full bg-transparent border-b theme-border focus:border-neutral-500 py-2 outline-none transition duration-300 text-sm font-light uppercase tracking-wider" placeholder="ENTER YOUR FULL NAME">
                         </div>
                         <div>
                             <label class="block text-[10px] font-mono-space uppercase tracking-[0.2em] theme-subtext mb-1">PHONE*</label>
-                            <input type="tel" required class="w-full bg-transparent border-b theme-border focus:border-neutral-500 py-2 outline-none transition duration-300 text-sm font-light uppercase tracking-wider" placeholder="ENTER PHONE NUMBER">
+                            <input type="tel" name="phone" required class="w-full bg-transparent border-b theme-border focus:border-neutral-500 py-2 outline-none transition duration-300 text-sm font-light uppercase tracking-wider" placeholder="ENTER PHONE NUMBER">
                         </div>
                         <div>
                             <label class="block text-[10px] font-mono-space uppercase tracking-[0.2em] theme-subtext mb-1">YOUR EMAIL*</label>
-                            <input type="email" required class="w-full bg-transparent border-b theme-border focus:border-neutral-500 py-2 outline-none transition duration-300 text-sm font-light uppercase tracking-wider" placeholder="ENTER MAIL ADDRESS">
+                            <input type="email" name="email" required class="w-full bg-transparent border-b theme-border focus:border-neutral-500 py-2 outline-none transition duration-300 text-sm font-light uppercase tracking-wider" placeholder="ENTER MAIL ADDRESS">
                         </div>
                         <div>
                             <label class="block text-[10px] font-mono-space uppercase tracking-[0.2em] theme-subtext mb-1">HOW CAN I HELP YOU</label>
-                            <textarea rows="2" class="w-full bg-transparent border-b theme-border focus:border-neutral-500 py-2 outline-none transition duration-300 text-sm font-light uppercase tracking-wider resize-none" placeholder="DISCUSS YOUR PROJECT BRIEF AND TIMELINE"></textarea>
+                            <textarea name="message" rows="2" class="w-full bg-transparent border-b theme-border focus:border-neutral-500 py-2 outline-none transition duration-300 text-sm font-light uppercase tracking-wider resize-none" placeholder="DISCUSS YOUR PROJECT BRIEF AND TIMELINE"></textarea>
                         </div>
                         
                         <!-- Tactile Budget Selector matching fresher expectations perfectly -->
                         <div>
                             <label class="block text-[10px] font-mono-space uppercase tracking-[0.2em] theme-subtext mb-3">PROJECT BUDGET (USD)</label>
+                            <input type="hidden" name="budget" id="budget-input" value="500-1K">
                             <div class="flex flex-wrap gap-6 mt-2">
                                 <button type="button" class="budget-option text-sm font-mono-space font-bold uppercase transition-all duration-300 border-b-2 border-transparent hover:border-[var(--text-color)] text-neutral-400">UNDER 500</button>
                                 <button type="button" class="budget-option text-sm font-mono-space font-bold uppercase transition-all duration-300 border-b-2 border-[var(--text-color)] text-[var(--text-color)]">500-1K</button>
@@ -1252,25 +1254,40 @@
 
         function handleResumeDownload(e) {
             e.preventDefault();
-            // Tactile feedback inside the button/link text
-            const originalText = e.currentTarget.innerText;
-            e.currentTarget.innerText = "[ COMPILING CV... ]";
             
-            setTimeout(() => {
-                e.currentTarget.innerText = "[ CV DOWNLOADED! ]";
-                
-                // Generating a dummy file download trigger for CV
-                const link = document.createElement('a');
-                link.href = 'assets/muhammed shasal tk_resume.pdf'; 
-                link.download = 'assets/muhammed shasal tk_resume.pdf';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
+            // Trigger the download synchronously to avoid browser security blocking programmatic clicks inside setTimeout
+            const link = document.createElement('a');
+            link.href = 'assets/muhammed_shasal_tk_resume.pdf';
+            link.download = 'muhammed_shasal_tk_resume.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            const target = e.currentTarget;
+            
+            // Visual tactile feedback
+            if (target.id === 'nav-cv-download') {
+                const textSpan = target.querySelector('span');
+                if (textSpan) {
+                    const originalText = textSpan.innerText;
+                    textSpan.innerText = "[ COMPILING CV... ]";
+                    setTimeout(() => {
+                        textSpan.innerText = "[ CV DOWNLOADED! ]";
+                        setTimeout(() => {
+                            textSpan.innerText = originalText;
+                        }, 2000);
+                    }, 1200);
+                }
+            } else if (target.id === 'body-cv-download') {
+                const originalHtml = target.innerHTML;
+                target.innerHTML = `[ COMPILING CV... ] <i class="fa-solid fa-arrow-down-long ml-1"></i>`;
                 setTimeout(() => {
-                    e.currentTarget.innerText = originalText;
-                }, 2000);
-            }, 1200);
+                    target.innerHTML = `[ CV DOWNLOADED! ] <i class="fa-solid fa-arrow-down-long ml-1"></i>`;
+                    setTimeout(() => {
+                        target.innerHTML = originalHtml;
+                    }, 2000);
+                }, 1200);
+            }
         }
 
         document.getElementById('nav-cv-download').addEventListener('click', handleResumeDownload);
@@ -1374,6 +1391,7 @@
         });
 
         const budgetOptions = document.querySelectorAll('.budget-option');
+        const budgetInput = document.getElementById('budget-input');
         budgetOptions.forEach(opt => {
             opt.addEventListener('click', () => {
                 budgetOptions.forEach(o => {
@@ -1382,6 +1400,9 @@
                 });
                 opt.classList.remove('border-transparent', 'text-neutral-400');
                 opt.classList.add('border-[var(--text-color)]', 'text-[var(--text-color)]');
+                if (budgetInput) {
+                    budgetInput.value = opt.textContent.trim();
+                }
             });
         });
 
@@ -1406,15 +1427,48 @@
             ScrollTrigger.refresh();
         });
 
-        // Form handler
+        // Form handler with Netlify Forms AJAX integration
         document.getElementById('contact-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnHtml = submitBtn.innerHTML;
+            
             submitBtn.innerText = "DISCUSSING YOUR BRIEF...";
-            setTimeout(() => {
+            submitBtn.disabled = true;
+            
+            const formData = new FormData(form);
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => {
                 submitBtn.innerText = "PROJECT BRIEF RECEIVED ↗";
-                e.target.reset();
-            }, 2000);
+                form.reset();
+                // Reset budget active selector state to default (500-1K)
+                if (budgetInput) budgetInput.value = "500-1K";
+                budgetOptions.forEach((o, i) => {
+                    o.classList.remove('border-[var(--text-color)]', 'text-[var(--text-color)]');
+                    o.classList.add('border-transparent', 'text-neutral-400');
+                    if (i === 1) { // 500-1K is index 1
+                        o.classList.remove('border-transparent', 'text-neutral-400');
+                        o.classList.add('border-[var(--text-color)]', 'text-[var(--text-color)]');
+                    }
+                });
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalBtnHtml;
+                    submitBtn.disabled = false;
+                }, 3000);
+            })
+            .catch((error) => {
+                console.error("Netlify form submission error:", error);
+                submitBtn.innerText = "SUBMISSION FAILED ✕";
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalBtnHtml;
+                    submitBtn.disabled = false;
+                }, 3000);
+            });
         });
 
         // Explicit 7-Project Database mapping Cover images to Full Webpage design URLs
